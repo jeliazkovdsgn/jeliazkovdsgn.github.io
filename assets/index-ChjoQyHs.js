@@ -12828,7 +12828,7 @@ async function lazyLoadRecorder() {
     }
 }
 async function importRecorder() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-Da_XwlIw.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-CulglM82.js'),true              ?[]:void 0);
     return module.startRecording;
 }
 
@@ -13051,7 +13051,7 @@ async function lazyLoadProfiler() {
     }
 }
 async function importProfiler() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-DYhAjuiQ.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-D-UAx0uK.js'),true              ?[]:void 0);
     return module.createRumProfiler;
 }
 
@@ -39609,14 +39609,6 @@ function localPreviewValidationChecks(id) {
             calculatedAt: PREVIEW_CALCULATED_AT,
             data: [
                 validationCheck({
-                    id: "val-passport-valid",
-                    title: "Passport is not expired",
-                    category: "IDENTITY",
-                    severity: "BLOCKING",
-                    status: "PASS",
-                    ordinal: 1,
-                }),
-                validationCheck({
                     id: "val-salary-designation",
                     title: "Salary certificate states a designation",
                     category: "EMPLOYMENT",
@@ -39631,17 +39623,6 @@ function localPreviewValidationChecks(id) {
     return {
         calculatedAt: "2026-11-17T10:14:00Z",
         data: [
-            validationCheck({
-                id: "val-passport-expired",
-                title: "Passport is not expired",
-                category: "IDENTITY",
-                severity: "BLOCKING",
-                status: "FAIL",
-                ordinal: 1,
-                comparison: {
-                    subject: { documentType: "PASSPORT", field: "expiry_date", value: "2025-07-23" },
-                },
-            }),
             validationCheck({
                 id: "val-designation",
                 title: "Salary certificate states a designation",
@@ -80874,4 +80855,4 @@ init("fe-space-credit-ops");
 setFavicon();
 
 export { instrumentSetter as $, getTextContent as A, reducePrivacyLevel as B, CENSORED_STRING_MARK as C, getNodeSelfPrivacyLevel as D, ExperimentalFeature as E, PRIVACY_ATTR_NAME as F, hasChildNodes as G, isNodeShadowRoot as H, forEachChildNodes as I, timeStampNow as J, getScrollY as K, getScrollX as L, isElementNode as M, NodePrivacyLevel as N, getNodePrivacyLevel as O, PRIVACY_ATTR_VALUE_HIDDEN as P, getParentNode as Q, RumPerformanceEntryType as R, SESSION_TIME_OUT_DELAY as S, isNodeShadowHost as T, getViewportDimension as U, Observable$2 as V, throttle as W, addEventListeners as X, initViewportObservable as Y, noop$2 as Z, instrumentMethod as _, addTelemetryDebug as a, requestIdleCallback as a0, getMutationObserverConstructor as a1, monitor as a2, sendToExtension as a3, addRecord as a4, getSegmentsCount as a5, addSegment as a6, addWroteData as a7, isPageExitReason as a8, ONE_SECOND as a9, addTelemetryMetrics as aa, getEventBridge as ab, canUseEventBridge as ac, buildTags as b, createHttpRequest as c, currentDrift as d, createValueHistory as e, RumLongTaskEntryType as f, addDuration as g, addEventListener$1 as h, getGlobalObject as i, jsonStringify as j, display as k, clocksNow as l, mockable as m, clearTimeout$1 as n, objectEntries as o, elapsed as p, clocksOrigin as q, monitorError as r, setTimeout$1 as s, isExperimentalFeatureEnabled as t, shouldMaskNode as u, buildUrl$1 as v, shouldMaskAttribute as w, CENSORED_IMG_MARK as x, sanitizeIfLongDataUrl as y, isSafari as z };
-//# sourceMappingURL=index-CA6HVzzr.js.map
+//# sourceMappingURL=index-ChjoQyHs.js.map
