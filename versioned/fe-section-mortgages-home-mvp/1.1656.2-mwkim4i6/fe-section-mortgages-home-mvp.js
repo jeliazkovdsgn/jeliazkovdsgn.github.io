@@ -30573,7 +30573,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			    setValue("opportunityDetails.opportunityId", lookupId, { shouldDirty: true });
 			  }, [opportunityData, banksData, dataUpdatedAt, lookupId, setValue, clearErrors]);
 			  const lookupErrorMessage = isError && error instanceof Error ? error.message : isError ? "Could not load opportunity." : null;
-			  return /* @__PURE__ */ React.createElement(n$n, { className: "border-border bg-muted/30 mb-4 gap-0 rounded-xl border shadow-none" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-end gap-2" }, /* @__PURE__ */ React.createElement("div", { className: "min-w-0 flex-1" }, /* @__PURE__ */ React.createElement(
+			  return /* @__PURE__ */ React.createElement("div", { className: "mb-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-end gap-2" }, /* @__PURE__ */ React.createElement("div", { className: "min-w-0 flex-1" }, /* @__PURE__ */ React.createElement(
 			    y,
 			    {
 			      label: "Opportunity / Case ID",
