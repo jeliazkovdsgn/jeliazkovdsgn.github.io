@@ -30545,8 +30545,6 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			  documentId: null
 			};
 
-			const DEMO_OPPORTUNITY_ID = "OPP-DEMO";
-			const isLocalPreview = () => window.huspy?.auth?.user?.id === "local-preview";
 			function OpportunityLookupSection() {
 			  const { setValue, clearErrors } = useFormContext();
 			  const [draftId, setDraftId] = useState("");
@@ -30568,14 +30566,6 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			      return;
 			    }
 			    setLookupId(trimmedDraftId);
-			  };
-			  const fillDemoCase = () => {
-			    setDraftId(DEMO_OPPORTUNITY_ID);
-			    if (lookupId === DEMO_OPPORTUNITY_ID) {
-			      void refetch();
-			      return;
-			    }
-			    setLookupId(DEMO_OPPORTUNITY_ID);
 			  };
 			  useEffect(() => {
 			    if (!opportunityData || !banksData || !lookupId || !dataUpdatedAt) return;
@@ -30602,16 +30592,6 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			      onClick: handleLookup
 			    },
 			    "Lookup"
-			  ), isLocalPreview() && /* @__PURE__ */ React.createElement(
-			    m$k,
-			    {
-			      type: "button",
-			      variant: "outline",
-			      className: "h-14 shrink-0 px-5 font-semibold",
-			      disabled: isFetching,
-			      onClick: fillDemoCase
-			    },
-			    "Demo"
 			  )), lookupErrorMessage && /* @__PURE__ */ React.createElement("p", { role: "alert", className: "text-destructive mt-2 text-sm" }, lookupErrorMessage), /* @__PURE__ */ React.createElement("p", { className: "text-muted-foreground mt-2 text-xs" }, "Optional. Enter an opportunity ID and click Lookup to prefill the form."));
 			}
 
@@ -31002,20 +30982,6 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			      helperText: "Drop a .zip file here or click to browse",
 			      pickAriaLabel: "Upload documents (.zip)"
 			    }
-			  ), window.huspy?.auth?.user?.id === "local-preview" && !documentId && /* @__PURE__ */ React.createElement(
-			    "button",
-			    {
-			      type: "button",
-			      className: "mt-2 text-xs font-medium text-foreground-secondary underline",
-			      onClick: () => {
-			        setValue("documentId", "sample-documents.zip", {
-			          shouldDirty: true,
-			          shouldValidate: true
-			        });
-			        clearErrors("documentId");
-			      }
-			    },
-			    "Use sample ZIP"
 			  )));
 			}
 
