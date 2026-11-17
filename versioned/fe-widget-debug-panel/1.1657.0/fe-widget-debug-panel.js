@@ -53,7 +53,7 @@ System.register(['react', '@huspy/fe'], (function (exports, module) {
           {
             type: "button",
             onClick: onOpen,
-            title: "Huspy Debug (Option/Alt+Shift+D)",
+            title: "Huspy Debug (Shift+H)",
             className: "relative flex h-10 w-10 items-center justify-center rounded-full border border-border bg-popover text-popover-foreground shadow-lg hover:bg-muted"
           },
           /* @__PURE__ */ React.createElement(
@@ -2610,7 +2610,9 @@ Co. {{location.county}}
         const errorsCount = useDiagnosticsCount();
         useEffect(() => {
           const onKeyDown = (event) => {
-            if (event.altKey && event.shiftKey && event.code === "KeyD" && !event.metaKey && !event.ctrlKey) {
+            const target = event.target;
+            const typingInField = target instanceof HTMLElement && target.closest("input, textarea, select, [contenteditable='true']") !== null;
+            if (event.shiftKey && event.code === "KeyH" && !event.metaKey && !event.ctrlKey && !event.altKey && !event.repeat && !typingInField) {
               event.preventDefault();
               setUi((current) => ({ ...current, open: !current.open }));
             } else if (event.key === "Escape") {
