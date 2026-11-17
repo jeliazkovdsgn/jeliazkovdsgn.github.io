@@ -12828,7 +12828,7 @@ async function lazyLoadRecorder() {
     }
 }
 async function importRecorder() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-DgHS5Hev.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-BHGVV_n7.js'),true              ?[]:void 0);
     return module.startRecording;
 }
 
@@ -13051,7 +13051,7 @@ async function lazyLoadProfiler() {
     }
 }
 async function importProfiler() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-Br_o1Toz.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-DpQia5hH.js'),true              ?[]:void 0);
     return module.createRumProfiler;
 }
 
@@ -39336,7 +39336,251 @@ const LOCAL_PREVIEW_DOCUMENT_TYPE_CODES = {
         totalPages: 1,
     },
 };
-const LOCAL_PREVIEW_EMPTY_CHECKS = { calculatedAt: null, data: [], skipped: [] };
+const DEMO_OPPORTUNITY_ID = "OPP-DEMO";
+const DEMO_CALCULATED_AT = "2026-11-16T09:00:00Z";
+/** Flags the email, eligibility, and create-case UI the demo walks through. */
+const LOCAL_PREVIEW_FEATURES = {
+    schemaVersion: "2",
+    featurevisorVersion: "3.11.0",
+    revision: "demo",
+    segments: {},
+    features: {
+        "f_credit_ops/email_template_tab": {
+            bucketBy: "userId",
+            traffic: [{ key: "everyone", segments: "*", percentage: 100000 }],
+            hash: "demo-email",
+        },
+        "f_credit_ops/eligibility_checks": {
+            bucketBy: "userId",
+            traffic: [{ key: "everyone", segments: "*", percentage: 100000 }],
+            hash: "demo-eligibility",
+        },
+        "f_credit_ops/create_case_doc_level": {
+            bucketBy: "userId",
+            traffic: [{ key: "everyone", segments: "*", percentage: 100000 }],
+            hash: "demo-doc-level",
+        },
+        "f_credit_ops/multi_applicants": {
+            bucketBy: "userId",
+            traffic: [{ key: "everyone", segments: "*", percentage: 100000 }],
+            hash: "demo-applicants",
+        },
+    },
+    variables: {},
+};
+const LOCAL_PREVIEW_BANKS = {
+    data: [
+        {
+            id: "bank-local-1",
+            name: "Preview Bank",
+            supportedMortgageTypes: ["CONVENTIONAL"],
+            supportedPropertyStatuses: ["READY", "LAND_ONLY", "UNDER_CONSTRUCTION"],
+            supportedRelationshipTypes: ["SPOUSE", "PARENT", "SIBLING", "CHILD", "OTHER"],
+            supportedDocLevels: ["FULL_DOC", "LOW_DOC"],
+        },
+    ],
+    metadata: {
+        ...LOCAL_PREVIEW_EMPTY_PAGE,
+        currentPageSize: 1,
+        totalCount: 1,
+        totalPages: 1,
+    },
+};
+const LOCAL_PREVIEW_OPPORTUNITY = {
+    opportunityDetails: {
+        mortgageType: "CONVENTIONAL",
+        applicantRole: "MAIN",
+        residencyType: "RESIDENT",
+        transactionType: "BUYOUT",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+        loanAmount: 1500000,
+    },
+    applicant: {
+        firstName: "Alex",
+        lastName: "Preview",
+        employmentType: "SALARIED",
+    },
+    applicants: [
+        {
+            applicantRole: "MAIN",
+            firstName: "Alex",
+            lastName: "Preview",
+            email: "alex.preview@example.com",
+            phone: "+971500000000",
+            residencyType: "RESIDENT",
+            employmentType: "SALARIED",
+        },
+    ],
+    banks: [{ name: "Preview Bank", mortgageType: "CONVENTIONAL", tenorMonths: 240 }],
+};
+const LOCAL_PREVIEW_CHECKS = {
+    calculatedAt: DEMO_CALCULATED_AT,
+    data: [
+        {
+            id: "check-passport",
+            ruleCode: "IDENTITY_PASSPORT_NOT_EXPIRED",
+            title: "Passport is valid",
+            failTitle: "Passport is expired",
+            category: "IDENTITY",
+            severity: "BLOCKING",
+            status: "PASS",
+            ordinal: 1,
+            applicantId: "ap-demo",
+            comparison: null,
+            waiver: null,
+        },
+        {
+            id: "check-salary",
+            ruleCode: "EMPLOYMENT_SALARY_PRESENT",
+            title: "Salary document received",
+            failTitle: "Salary document missing",
+            category: "EMPLOYMENT",
+            severity: "BLOCKING",
+            status: "PASS",
+            ordinal: 1,
+            applicantId: "ap-demo",
+            comparison: null,
+            waiver: null,
+        },
+    ],
+    skipped: [],
+};
+const LOCAL_PREVIEW_POLICY_CHECKS = {
+    calculatedAt: DEMO_CALCULATED_AT,
+    data: [
+        {
+            id: "policy-ltv",
+            ruleCode: "LTV_WITHIN_CAP",
+            title: "Loan amount is within bank policy",
+            category: "FINANCIAL",
+            severity: "BLOCKING",
+            status: "PASS",
+            ordinal: 1,
+            applicantId: null,
+            comparison: { subjectValue: "1500000", targetValue: "5000000", unit: "AED" },
+            waiver: null,
+        },
+    ],
+    skipped: [],
+};
+const LOCAL_PREVIEW_ELIGIBILITY = {
+    applicants: [
+        {
+            id: "ap-demo",
+            name: "Alex Preview",
+            role: "MAIN",
+            totalEarnings: 22000,
+            totalLiabilities: 1500,
+            currency: "AED",
+            earnings: [
+                {
+                    id: "earning-salary",
+                    earningType: "FIXED_ITEM",
+                    amount: { value: 22000, currency: "AED" },
+                    eligibleAmount: { value: 22000, currency: "AED" },
+                    documentType: "PAYSLIP",
+                    allocation: 100,
+                    frequency: "MONTHLY",
+                    description: "Basic salary",
+                    source: "EXTRACTION",
+                },
+            ],
+            liabilities: [
+                {
+                    id: "liability-card",
+                    liabilityType: "LOAN",
+                    amount: { value: 1500, currency: "AED" },
+                    eligibleAmount: { value: 1500, currency: "AED" },
+                    documentType: "BANK_STATEMENT",
+                    allocation: 100,
+                    frequency: "MONTHLY",
+                    description: "Credit card",
+                    source: "EXTRACTION",
+                },
+            ],
+        },
+    ],
+    summary: {
+        totalEarnings: 22000,
+        totalLiabilities: 1500,
+        currency: "AED",
+        dbr: 32,
+        maxDbrPercent: 50,
+        dbrWithinCap: true,
+        effectiveTenorBoundBy: "REQUESTED",
+        tenor: {
+            requestedTenorMonths: 240,
+            regulatorTenorMonths: 300,
+            householdTenorMonths: 300,
+            overriddenTenorMonths: null,
+        },
+        stressRate: { stressRatePercent: 4.5, overriddenStressRatePercent: null },
+        requestedLoan: { requestedLoanAmount: 150000000, overriddenRequestedLoanAmount: null },
+        requestedLoanEmi: 8500,
+        newDbr: 41,
+        newDbrWithinCap: true,
+        maxPermissibleLoanSource: "CENTRAL_BANK",
+        emiCapacity: 8500,
+        maxLoanAnnuity: 1600000,
+        centralBankCap: 1500000,
+        maxPermissibleLoan: 1500000,
+        affordable: true,
+    },
+};
+/** Empty zip end-of-central-directory, so Generate package downloads a file. */
+const DEMO_ZIP_DOWNLOAD_URL = "data:application/zip;base64,UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==";
+const createdPreviewCases = [];
+function resetCreatedPreviewCases() {
+    createdPreviewCases.length = 0;
+}
+function previewList() {
+    const data = [...LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.data, ...createdPreviewCases];
+    return {
+        data,
+        metadata: {
+            ...LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.metadata,
+            currentPageSize: data.length,
+            totalCount: data.length,
+        },
+    };
+}
+function readJson(rawBody) {
+    if (!rawBody)
+        return {};
+    try {
+        const parsed = JSON.parse(rawBody);
+        return parsed && typeof parsed === "object" ? parsed : {};
+    }
+    catch {
+        return {};
+    }
+}
+function rememberCreatedCase(rawBody) {
+    const parsed = readJson(rawBody);
+    const applicants = Array.isArray(parsed.applicants) ? parsed.applicants : [];
+    const applicant = (applicants[0] ?? {});
+    const fullName = `${applicant.firstName ?? "Alex"} ${applicant.lastName ?? "Preview"}`.trim();
+    const details = (parsed.opportunityDetails ?? {});
+    const id = `ba-demo-${createdPreviewCases.length + 1}`;
+    createdPreviewCases.push({
+        id,
+        mortgageApplication: {
+            id: details.opportunityId || DEMO_OPPORTUNITY_ID,
+            applicantFullName: fullName,
+            applicants: [{ id: `ap-${id}`, fullName, role: "MAIN" }],
+        },
+        bank: { id: "bank-local-1", name: "Preview Bank" },
+        amount: Math.round(Number(details.loanAmount ?? 1500000) * 100),
+        currency: "AED",
+        status: "READY",
+        createdAt: DEMO_CALCULATED_AT,
+        updatedAt: DEMO_CALCULATED_AT,
+        createdById: "local-preview",
+        creatorName: "Local Preview",
+    });
+    return { id };
+}
 function previewFile(id, fileName) {
     return {
         id,
@@ -39349,7 +39593,7 @@ function previewFile(id, fileName) {
     };
 }
 function localPreviewBankApplicationDetail(id) {
-    const row = LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.data.find((item) => item.id === id);
+    const row = [...LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.data, ...createdPreviewCases].find((item) => item.id === id);
     const applicant = row?.mortgageApplication.applicants[0] ?? {
         id: "ap-preview",
         fullName: "Local Preview",
@@ -39423,25 +39667,85 @@ function jsonResponse(body) {
         headers: { "Content-Type": "application/json" },
     });
 }
-function mockBodyFor(url, method) {
+function mockBodyFor(url, method, rawBody) {
+    if (/featurevisor-tag-/.test(url) && method === "GET")
+        return LOCAL_PREVIEW_FEATURES;
+    if (/local-preview\.invalid\/upload/.test(url) && method === "PUT")
+        return {};
+    if (method === "POST" && /\/documents\/upload\/bulk(?:\?|$)/.test(url)) {
+        const parsed = readJson(rawBody);
+        const files = Array.isArray(parsed.files) ? parsed.files : [];
+        const file = (files[0] ?? {});
+        return {
+            files: [
+                {
+                    documentId: "doc-sample-zip",
+                    name: file.name ?? "sample-documents.zip",
+                    uploadUrl: "https://local-preview.invalid/upload/doc-sample-zip",
+                    headers: {},
+                    processingSteps: [],
+                },
+            ],
+        };
+    }
+    if (method === "POST" && /\/mortgage-applications(?:\?|$)/.test(url)) {
+        return rememberCreatedCase(rawBody);
+    }
+    if (method === "POST" && /\/bank-applications\/[^/?]+\/zip-packages(?:\?|$)/.test(url)) {
+        return { zipId: "zip-demo" };
+    }
+    if (method === "POST" && /\/documents\/[^/?]+\/download(?:\?|$)/.test(url)) {
+        return { downloadUrl: DEMO_ZIP_DOWNLOAD_URL };
+    }
     if (method !== "GET")
         return undefined;
     if (/\/api\/v1\/users\/me(?:\?|$)/.test(url))
         return LOCAL_PREVIEW_USER_API;
-    if (/credit-ops\/bank-applications(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS;
-    }
+    if (/credit-ops\/bank-applications(?:\?|$)/.test(url))
+        return previewList();
     if (/\/bank-applications\/[^/?]+\/document-validation-checks(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_EMPTY_CHECKS;
+        return LOCAL_PREVIEW_CHECKS;
     }
     if (/\/bank-applications\/[^/?]+\/bank-policy-checks(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_EMPTY_CHECKS;
+        return LOCAL_PREVIEW_POLICY_CHECKS;
+    }
+    if (/\/bank-applications\/[^/?]+\/eligibility-checks(?:\?|$)/.test(url)) {
+        return LOCAL_PREVIEW_ELIGIBILITY;
+    }
+    if (/\/zips\/[^/?]+(?:\?|$)/.test(url)) {
+        return {
+            id: "zip-demo",
+            generatedDocumentId: "doc-generated-zip",
+            documentIdsToZip: ["doc-sample-zip"],
+            status: "COMPLETED",
+        };
+    }
+    const document = url.match(/\/documents\/([^/?]+)(?:\?|$)/);
+    if (document) {
+        return {
+            documentId: document[1],
+            name: "sample-documents.zip",
+            contentType: "application/zip",
+            sizeInBytes: 1024,
+            createdAt: DEMO_CALCULATED_AT,
+            isUploaded: true,
+            uploadedAt: DEMO_CALCULATED_AT,
+            metadata: {},
+            isPublic: false,
+            previewUrl: "",
+            downloadUrl: DEMO_ZIP_DOWNLOAD_URL,
+            variations: [],
+        };
     }
     const detail = url.match(/\/api\/v1\/bank-applications\/([^/?]+)(?:\?|$)/);
     if (detail)
         return localPreviewBankApplicationDetail(detail[1]);
     if (/\/document-type-codes(?:\?|$)/.test(url))
         return LOCAL_PREVIEW_DOCUMENT_TYPE_CODES;
+    if (/\/opportunities\/[^/?]+(?:\?|$)/.test(url))
+        return LOCAL_PREVIEW_OPPORTUNITY;
+    if (/\/api\/v1\/banks(?:\?|$)/.test(url))
+        return LOCAL_PREVIEW_BANKS;
     return undefined;
 }
 function installLocalPreviewNetworkMocks() {
@@ -39451,11 +39755,13 @@ function installLocalPreviewNetworkMocks() {
     if (flagHost[NETWORK_PATCH_FLAG])
         return;
     flagHost[NETWORK_PATCH_FLAG] = true;
+    resetCreatedPreviewCases();
     const originalFetch = window.fetch.bind(window);
     window.fetch = async (input, init) => {
         const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
         const method = (init?.method ?? (input instanceof Request ? input.method : "GET")).toUpperCase();
-        const body = mockBodyFor(url, method);
+        const rawBody = typeof init?.body === "string" ? init.body : undefined;
+        const body = mockBodyFor(url, method, rawBody);
         if (body !== undefined)
             return jsonResponse(body);
         return originalFetch(input, init);
@@ -39482,7 +39788,8 @@ function installLocalPreviewNetworkMocks() {
         });
         const send = xhr.send.bind(xhr);
         xhr.send = ((body) => {
-            const mock = mockBodyFor(url, method.toUpperCase());
+            const rawBody = typeof body === "string" ? body : undefined;
+            const mock = mockBodyFor(url, method.toUpperCase(), rawBody);
             if (mock === undefined)
                 return send(body);
             const payload = JSON.stringify(mock);
@@ -79855,4 +80162,4 @@ init("fe-space-credit-ops");
 setFavicon();
 
 export { instrumentSetter as $, getTextContent as A, reducePrivacyLevel as B, CENSORED_STRING_MARK as C, getNodeSelfPrivacyLevel as D, ExperimentalFeature as E, PRIVACY_ATTR_NAME as F, hasChildNodes as G, isNodeShadowRoot as H, forEachChildNodes as I, timeStampNow as J, getScrollY as K, getScrollX as L, isElementNode as M, NodePrivacyLevel as N, getNodePrivacyLevel as O, PRIVACY_ATTR_VALUE_HIDDEN as P, getParentNode as Q, RumPerformanceEntryType as R, SESSION_TIME_OUT_DELAY as S, isNodeShadowHost as T, getViewportDimension as U, Observable$2 as V, throttle as W, addEventListeners as X, initViewportObservable as Y, noop$2 as Z, instrumentMethod as _, addTelemetryDebug as a, requestIdleCallback as a0, getMutationObserverConstructor as a1, monitor as a2, sendToExtension as a3, addRecord as a4, getSegmentsCount as a5, addSegment as a6, addWroteData as a7, isPageExitReason as a8, ONE_SECOND as a9, addTelemetryMetrics as aa, getEventBridge as ab, canUseEventBridge as ac, buildTags as b, createHttpRequest as c, currentDrift as d, createValueHistory as e, RumLongTaskEntryType as f, addDuration as g, addEventListener$1 as h, getGlobalObject as i, jsonStringify as j, display as k, clocksNow as l, mockable as m, clearTimeout$1 as n, objectEntries as o, elapsed as p, clocksOrigin as q, monitorError as r, setTimeout$1 as s, isExperimentalFeatureEnabled as t, shouldMaskNode as u, buildUrl$1 as v, shouldMaskAttribute as w, CENSORED_IMG_MARK as x, sanitizeIfLongDataUrl as y, isSafari as z };
-//# sourceMappingURL=index-CmStUrn_.js.map
+//# sourceMappingURL=index-DVshLuTt.js.map
