@@ -12828,7 +12828,7 @@ async function lazyLoadRecorder() {
     }
 }
 async function importRecorder() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-CvCCTNdT.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-Da_XwlIw.js'),true              ?[]:void 0);
     return module.startRecording;
 }
 
@@ -13051,7 +13051,7 @@ async function lazyLoadProfiler() {
     }
 }
 async function importProfiler() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-Blh-Zt84.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-DYhAjuiQ.js'),true              ?[]:void 0);
     return module.createRumProfiler;
 }
 
@@ -39242,19 +39242,19 @@ function previewFile(id, fileName) {
         processingStatus: "READY",
     };
 }
-function leaf(type, fileName, isRequired = true) {
+function leaf(type, fileName, isRequired = true, prefix = "") {
     return {
         type,
-        matchedFiles: fileName ? [previewFile(`${type}-${fileName}`, fileName)] : [],
+        matchedFiles: fileName ? [previewFile(`${prefix}${type}-${fileName}`, fileName)] : [],
         documents: [],
         isRequired,
         processingStatus: "READY",
     };
 }
-function mergeGroup(type, mergedName, children, groupKey) {
+function mergeGroup(type, mergedName, children, groupKey, prefix = "") {
     return {
         type,
-        matchedFiles: [previewFile(`${groupKey}-merged`, mergedName)],
+        matchedFiles: [previewFile(`${prefix}${type}-${groupKey}-merged`, mergedName)],
         documents: children,
         isRequired: true,
         processingStatus: "READY",
@@ -39382,56 +39382,45 @@ const LOCAL_PREVIEW_EARNING_TYPES = {
 const LOCAL_PREVIEW_LIABILITY_TYPES = {
     data: ["FIXED_ITEM", "LOAN", "OTHER"],
 };
-function pritiChecklist() {
+function checklistFor(applicant) {
+    const prefix = `${applicant.id}--`;
+    const passportFile = applicant.id === "ap-sumit" ? "Passport_Sumit Goel.pdf" : "PASSPORT.pdf 2.pdf";
+    const statementFile = applicant.id === "ap-marc"
+        ? "Authenticated_E-Statement_04Nov2026_201600887_2101_unlocked.pdf"
+        : "2026-09-22_Statement.pdf";
     return {
         applicantDocuments: [
             {
                 applicant: {
-                    id: "ap-priti",
-                    fullName: "Priti Mishra",
-                    role: "MAIN",
+                    ...applicant,
                     employmentType: "SALARIED",
                     residencyType: "RESIDENT",
                 },
                 stats: { total: 17, received: 13 },
                 documents: [
                     mergeGroup("KYC", "KYC.pdf", [
-                        leaf("PASSPORT", "PASSPORT.pdf 2.pdf"),
-                        leaf("EMIRATES_ID", "Adobe Scan 16 Oct 2026.pdf"),
-                        leaf("RESIDENCE_VISA", "WhatsApp image 2026-11-16 at 10.13.57 AM.pdf"),
-                    ], "DOC:kyc-priti"),
-                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "2026-09-22_Statement.pdf")], "ACCOUNT_NUMBER:1"),
-                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "OCTOBER 2026.pdf")], "ACCOUNT_NUMBER:2"),
-                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "Stamped_Account_Statement_7004-1.pdf")], "ACCOUNT_NUMBER:3"),
-                    leaf("ADIB_FTS_CONSENT_FORM", "Ms Priti ADIB_FTS_Form__2.pdf"),
-                    leaf("ADIB_HOME_FINANCE_KFS", "Ms Priti ADIB_KFS_Form__4.pdf"),
-                    leaf("ADIB_HOME_FINANCE_TAKAFUL_KFS", "Ms priti ADIB_Takaful_KFS_10.pdf"),
-                    leaf("ADIB_HOME_FINANCE_TERMS", "Ms Priti ADIB_Terms_Conditions_Form_11.pdf"),
-                    leaf("SALARY_CERTIFICATE", "19361 - Dr. Priti Mishra - ADIB - Salary Certificate.pdf"),
-                    leaf("LABOUR_CONTRACT", "contract (1).pdf", false),
-                    leaf("EXPERIENCE_LETTER", "SL Priti.pdf", false),
-                    leaf("SHARE_CERTIFICATE", "Visa Cancellation Priti.pdf", false),
+                        leaf("PASSPORT", passportFile, true, prefix),
+                        leaf("EMIRATES_ID", "Adobe Scan 16 Oct 2026.pdf", true, prefix),
+                        leaf("RESIDENCE_VISA", "WhatsApp image 2026-11-16 at 10.13.57 AM.pdf", true, prefix),
+                    ], "DOC:kyc", prefix),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", statementFile, true, prefix)], "ACCOUNT_NUMBER:1", prefix),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "OCTOBER 2026.pdf", true, prefix)], "ACCOUNT_NUMBER:2", prefix),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "Stamped_Account_Statement_7004-1.pdf", true, prefix)], "ACCOUNT_NUMBER:3", prefix),
+                    leaf("ADIB_FTS_CONSENT_FORM", "Ms Priti ADIB_FTS_Form__2.pdf", true, prefix),
+                    leaf("ADIB_HOME_FINANCE_KFS", "Ms Priti ADIB_KFS_Form__4.pdf", true, prefix),
+                    leaf("ADIB_HOME_FINANCE_TAKAFUL_KFS", "Ms priti ADIB_Takaful_KFS_10.pdf", true, prefix),
+                    leaf("ADIB_HOME_FINANCE_TERMS", "Ms Priti ADIB_Terms_Conditions_Form_11.pdf", true, prefix),
+                    leaf("SALARY_CERTIFICATE", "19361 - Dr. Priti Mishra - ADIB - Salary Certificate.pdf", true, prefix),
+                    leaf("LABOUR_CONTRACT", "contract (1).pdf", false, prefix),
+                    leaf("EXPERIENCE_LETTER", "SL Priti.pdf", false, prefix),
+                    leaf("SHARE_CERTIFICATE", "Visa Cancellation Priti.pdf", false, prefix),
                 ],
             },
         ],
         caseDocuments: [
-            leaf("ADIB_HOME_FINANCE_APPLICATION", "Ms Priti ADIB_Home_Finance_-_Smart_Application_Form_V9_3.pdf"),
+            leaf("ADIB_HOME_FINANCE_APPLICATION", "Ms Priti ADIB_Home_Finance_-_Smart_Application_Form_V9_3.pdf", true, prefix),
         ],
         unclassifiedFiles: [],
-    };
-}
-function checklistFor(applicant) {
-    const priti = pritiChecklist();
-    return {
-        ...priti,
-        applicantDocuments: priti.applicantDocuments.map((group) => ({
-            ...group,
-            applicant: {
-                ...applicant,
-                employmentType: "SALARIED",
-                residencyType: "RESIDENT",
-            },
-        })),
     };
 }
 const LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS = {
@@ -40019,6 +40008,243 @@ function localPreviewOpportunity(id) {
         ],
     };
 }
+const extractedMeta = {
+    source: "EXTRACTION",
+    updatedById: null,
+    updatedAt: null,
+    reviewStatus: null,
+};
+function scalarField(fieldKey, label, dataType, value, options = null) {
+    return { key: fieldKey, fieldKey, label, dataType, options, value, ...extractedMeta };
+}
+function groupCell(group, index, fieldKey, value) {
+    return { key: `${group}[${index}].${fieldKey}`, fieldKey, value, ...extractedMeta };
+}
+const PREVIEW_EXTRACT_PEOPLE = [
+    {
+        id: "ap-sumit",
+        firstName: "SUMIT",
+        lastName: "GOEL",
+        passportNumber: "Z5216990",
+        dateOfBirth: "1986-07-25",
+        expiryDate: "2033-02-14",
+        nationality: "IND",
+        gender: "MALE",
+        fatherName: "PRAMOD KUMAR GOEL",
+        motherName: "RAJNI GOEL",
+        iban: "AE590260001015931492101",
+        accountNumber: "1015931492101",
+    },
+    {
+        id: "ap-marc",
+        firstName: "MARC",
+        lastName: "AOUN",
+        passportNumber: "P8392014",
+        dateOfBirth: "1984-03-11",
+        expiryDate: "2031-08-19",
+        nationality: "LBN",
+        gender: "MALE",
+        fatherName: "",
+        motherName: "",
+        iban: "AE590260001015931492101",
+        accountNumber: "1015931492101",
+    },
+    {
+        id: "ap-priti",
+        firstName: "PRITI",
+        lastName: "MISHRA",
+        passportNumber: "Z4478123",
+        dateOfBirth: "1988-04-09",
+        expiryDate: "2032-11-21",
+        nationality: "IND",
+        gender: "FEMALE",
+        fatherName: "",
+        motherName: "",
+        iban: "AE590260001015931492101",
+        accountNumber: "1015931492101",
+    },
+    {
+        id: "ap-hamad",
+        firstName: "HAMAD",
+        lastName: "SOWAIS",
+        passportNumber: "N1029384",
+        dateOfBirth: "1991-12-02",
+        expiryDate: "2034-06-18",
+        nationality: "ARE",
+        gender: "MALE",
+        fatherName: "",
+        motherName: "",
+        iban: "AE590260001015931492101",
+        accountNumber: "1015931492101",
+    },
+];
+function personFromDocumentId(documentId) {
+    return (PREVIEW_EXTRACT_PEOPLE.find((person) => documentId.includes(person.id)) ??
+        PREVIEW_EXTRACT_PEOPLE.find((person) => person.id === "ap-priti") ??
+        PREVIEW_EXTRACT_PEOPLE[0]);
+}
+const GENDER_OPTIONS = ["MALE", "FEMALE"];
+const TRANSACTION_TYPE_OPTIONS = ["SALARY", "TRANSFER", "OTHER"];
+const STATEMENT_CURRENCY_OPTIONS = ["AED"];
+function passportExtractedFields(documentId, person) {
+    return {
+        documentId,
+        documentType: "PASSPORT",
+        status: "EXTRACTED",
+        failureReason: null,
+        fields: [
+            scalarField("first_name", "First Name", "TEXT", person.firstName),
+            scalarField("last_name", "Last Name", "TEXT", person.lastName),
+            scalarField("passport_number", "Passport Number", "TEXT", person.passportNumber),
+            scalarField("date_of_birth", "Date Of Birth", "DATE", person.dateOfBirth),
+            scalarField("expiry_date", "Expiry Date", "DATE", person.expiryDate),
+            scalarField("nationality", "Nationality", "TEXT", person.nationality),
+            scalarField("gender", "Gender", "ENUM", person.gender, GENDER_OPTIONS),
+            scalarField("father_name", "Father Name", "TEXT", person.fatherName),
+            scalarField("mother_name", "Mother Name", "TEXT", person.motherName),
+        ],
+        groups: [],
+    };
+}
+const CREDIT_TRANSACTIONS = [
+    { date: "2026-05-15", description: "TT REF: AEL26051", amount: "625.27", type: "OTHER" },
+    { date: "2026-05-22", description: "TT REF: AEL26052", amount: "24140.00", type: "SALARY" },
+    { date: "2026-06-12", description: "TT REF: AEL26061", amount: "1144.89", type: "OTHER" },
+    { date: "2026-06-14", description: "RMA 2026061400", amount: "560.00", type: "TRANSFER" },
+];
+function bankStatementExtractedFields(documentId, person) {
+    return {
+        documentId,
+        documentType: "BANK_STATEMENT",
+        status: "EXTRACTED",
+        failureReason: null,
+        fields: [
+            scalarField("account_holder_first", "Account Holder First", "TEXT", person.firstName),
+            scalarField("account_holder_last", "Account Holder Last", "TEXT", person.lastName),
+            scalarField("iban", "Iban", "TEXT", person.iban),
+            scalarField("account_number", "Account Number", "TEXT", person.accountNumber),
+        ],
+        groups: [
+            {
+                name: "statements",
+                label: "Statements",
+                template: [
+                    { fieldKey: "index", label: "Index", dataType: "INTEGER", options: null },
+                    { fieldKey: "from_date", label: "From Date", dataType: "DATE", options: null },
+                    { fieldKey: "to_date", label: "To Date", dataType: "DATE", options: null },
+                    {
+                        fieldKey: "currency",
+                        label: "Currency",
+                        dataType: "ENUM",
+                        options: STATEMENT_CURRENCY_OPTIONS,
+                    },
+                ],
+                items: [
+                    {
+                        index: 0,
+                        fields: [
+                            groupCell("statements", 0, "index", "1"),
+                            groupCell("statements", 0, "from_date", "2026-05-04"),
+                            groupCell("statements", 0, "to_date", "2026-11-04"),
+                            groupCell("statements", 0, "currency", STATEMENT_CURRENCY_OPTIONS[0]),
+                        ],
+                    },
+                ],
+            },
+            {
+                name: "credit_transactions",
+                label: "Credit Transactions",
+                template: [
+                    {
+                        fieldKey: "statement_index",
+                        label: "Statement Index",
+                        dataType: "INTEGER",
+                        options: null,
+                    },
+                    { fieldKey: "date", label: "Date", dataType: "DATE", options: null },
+                    { fieldKey: "description", label: "Description", dataType: "TEXT", options: null },
+                    { fieldKey: "amount", label: "Amount", dataType: "DECIMAL", options: null },
+                    {
+                        fieldKey: "transaction_type",
+                        label: "Transaction Type",
+                        dataType: "ENUM",
+                        options: TRANSACTION_TYPE_OPTIONS,
+                    },
+                ],
+                items: CREDIT_TRANSACTIONS.map((row, index) => ({
+                    index,
+                    fields: [
+                        groupCell("credit_transactions", index, "statement_index", "1"),
+                        groupCell("credit_transactions", index, "date", row.date),
+                        groupCell("credit_transactions", index, "description", row.description),
+                        groupCell("credit_transactions", index, "amount", row.amount),
+                        groupCell("credit_transactions", index, "transaction_type", row.type),
+                    ],
+                })),
+            },
+        ],
+    };
+}
+function genericExtractedFields(documentId, documentType) {
+    return {
+        documentId,
+        documentType,
+        status: "EXTRACTED",
+        failureReason: null,
+        fields: [
+            scalarField("document_number", "Document Number", "TEXT", "PREVIEW-001"),
+            scalarField("issue_date", "Issue Date", "DATE", "2026-09-22"),
+        ],
+        groups: [],
+    };
+}
+function documentTypeFromId(documentId) {
+    const types = [
+        "BANK_STATEMENT_CUMULATIVE",
+        "BANK_STATEMENT",
+        "PASSPORT",
+        "EMIRATES_ID",
+        "RESIDENCE_VISA",
+        "SALARY_CERTIFICATE",
+        "LABOUR_CONTRACT",
+        "EXPERIENCE_LETTER",
+        "SHARE_CERTIFICATE",
+        "ADIB_FTS_CONSENT_FORM",
+        "ADIB_HOME_FINANCE_KFS",
+        "ADIB_HOME_FINANCE_TAKAFUL_KFS",
+        "ADIB_HOME_FINANCE_TERMS",
+        "ADIB_HOME_FINANCE_APPLICATION",
+        "KYC",
+    ];
+    return types.find((type) => documentId.includes(type)) ?? "OTHER";
+}
+/** Dummy GET /documents/{id}/extracted-fields payload for --no-auth preview. */
+function localPreviewExtractedFields(documentId) {
+    const person = personFromDocumentId(documentId);
+    const documentType = documentTypeFromId(documentId);
+    if (documentType === "PASSPORT")
+        return passportExtractedFields(documentId, person);
+    if (documentType === "BANK_STATEMENT" || documentType === "BANK_STATEMENT_CUMULATIVE") {
+        return bankStatementExtractedFields(documentId, person);
+    }
+    return genericExtractedFields(documentId, documentType);
+}
+function localPreviewPatchedExtractedFields(entries) {
+    return {
+        fields: entries.map((entry) => ({
+            key: String(entry.key ?? ""),
+            fieldKey: String(entry.key ?? ""),
+            label: String(entry.key ?? ""),
+            dataType: "TEXT",
+            options: null,
+            value: entry.value ?? null,
+            source: "MANUAL",
+            updatedById: "local-preview",
+            updatedAt: PREVIEW_CALCULATED_AT,
+            reviewStatus: "APPROVED",
+        })),
+    };
+}
 function previewBankById(id) {
     return LOCAL_PREVIEW_BANKS.data.find((bank) => bank.id === id) ?? LOCAL_PREVIEW_BANKS.data[0];
 }
@@ -40167,6 +40393,12 @@ function mockBodyFor(url, method, rawBody) {
     if (method === "POST" && /\/documents\/[^/?]+\/download(?:\?|$)/.test(url)) {
         return { downloadUrl: DEMO_ZIP_DOWNLOAD_URL };
     }
+    const extractedPatch = url.match(/\/documents\/([^/?]+)\/extracted-fields(?:\?|$)/);
+    if (method === "PATCH" && extractedPatch) {
+        const parsed = readJson(rawBody);
+        const fields = Array.isArray(parsed.fields) ? parsed.fields : [];
+        return localPreviewPatchedExtractedFields(fields);
+    }
     if (method !== "GET")
         return undefined;
     if (/\/api\/v1\/users\/me(?:\?|$)/.test(url))
@@ -40196,6 +40428,9 @@ function mockBodyFor(url, method, rawBody) {
         return LOCAL_PREVIEW_EARNING_TYPES;
     if (/\/liability-types(?:\?|$)/.test(url))
         return LOCAL_PREVIEW_LIABILITY_TYPES;
+    const extracted = url.match(/\/documents\/([^/?]+)\/extracted-fields(?:\?|$)/);
+    if (extracted)
+        return localPreviewExtractedFields(decodeURIComponent(extracted[1]));
     const document = url.match(/\/documents\/([^/?]+)(?:\?|$)/);
     if (document) {
         return {
@@ -80639,4 +80874,4 @@ init("fe-space-credit-ops");
 setFavicon();
 
 export { instrumentSetter as $, getTextContent as A, reducePrivacyLevel as B, CENSORED_STRING_MARK as C, getNodeSelfPrivacyLevel as D, ExperimentalFeature as E, PRIVACY_ATTR_NAME as F, hasChildNodes as G, isNodeShadowRoot as H, forEachChildNodes as I, timeStampNow as J, getScrollY as K, getScrollX as L, isElementNode as M, NodePrivacyLevel as N, getNodePrivacyLevel as O, PRIVACY_ATTR_VALUE_HIDDEN as P, getParentNode as Q, RumPerformanceEntryType as R, SESSION_TIME_OUT_DELAY as S, isNodeShadowHost as T, getViewportDimension as U, Observable$2 as V, throttle as W, addEventListeners as X, initViewportObservable as Y, noop$2 as Z, instrumentMethod as _, addTelemetryDebug as a, requestIdleCallback as a0, getMutationObserverConstructor as a1, monitor as a2, sendToExtension as a3, addRecord as a4, getSegmentsCount as a5, addSegment as a6, addWroteData as a7, isPageExitReason as a8, ONE_SECOND as a9, addTelemetryMetrics as aa, getEventBridge as ab, canUseEventBridge as ac, buildTags as b, createHttpRequest as c, currentDrift as d, createValueHistory as e, RumLongTaskEntryType as f, addDuration as g, addEventListener$1 as h, getGlobalObject as i, jsonStringify as j, display as k, clocksNow as l, mockable as m, clearTimeout$1 as n, objectEntries as o, elapsed as p, clocksOrigin as q, monitorError as r, setTimeout$1 as s, isExperimentalFeatureEnabled as t, shouldMaskNode as u, buildUrl$1 as v, shouldMaskAttribute as w, CENSORED_IMG_MARK as x, sanitizeIfLongDataUrl as y, isSafari as z };
-//# sourceMappingURL=index-Bp-EzXH2.js.map
+//# sourceMappingURL=index-CA6HVzzr.js.map
