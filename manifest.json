@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "2",
+  "spaceVersion": "1.1571.0",
+  "services": {
+    "fe-features": {
+      "v1": "/features"
+    },
+    "fe-static": {
+      "v1": "https://fe-static.huspy.com"
+    },
+    "fe-translations": {
+      "v1": ""
+    },
+    "doc": {
+      "v1": "https://doc.dev.huspy.net/api/v1"
+    },
+    "underwriting": {
+      "v1": "https://underwriting.dev.huspy.net/api/v1"
+    },
+    "user": {
+      "v1": "https://user.dev.huspy.net/api/v1"
+    },
+    "bff": {
+      "v1": "https://bff-mobile-web.dev.huspy.net/api/v1"
+    },
+    "property": {
+      "v1": "https://property.dev.huspy.net"
+    }
+  },
+  "i18n": {
+    "countries": {
+      "AE": {
+        "allowedLanguages": [
+          "en",
+          "es"
+        ],
+        "defaultLanguage": "en"
+      },
+      "ES": {
+        "allowedLanguages": [
+          "en",
+          "es"
+        ],
+        "defaultLanguage": "es"
+      },
+      "SA": {
+        "allowedLanguages": [
+          "en",
+          "es"
+        ],
+        "defaultLanguage": "en"
+      },
+      "US": {
+        "allowedLanguages": [
+          "en",
+          "es"
+        ],
+        "defaultLanguage": "en"
+      }
+    }
+  },
+  "logging": {
+    "logLevel": "error"
+  },
+  "analytics": {
+    "enabled": false
+  },
+  "auth": {
+    "flow": "none",
+    "url": "https://identity-service.dev.huspy.net",
+    "clientId": "credit-ops-client",
+    "realm": "huspy-internal",
+    "redirects": {
+      "anonymous": "/login",
+      "authenticated": "/ops-queue"
+    }
+  },
+  "envVars": {},
+  "pages": [
+    {
+      "name": "fe-page-credit-ops-login",
+      "path": "/login",
+      "userTypes": [
+        "anonymous"
+      ],
+      "roles": "*",
+      "version": "1.1571.0"
+    },
+    {
+      "name": "fe-page-credit-ops-home",
+      "path": "/",
+      "userTypes": [
+        "authenticated"
+      ],
+      "roles": "*",
+      "version": "1.1571.0"
+    },
+    {
+      "name": "fe-page-invalid-issuer",
+      "path": "/auth/invalid-issuer",
+      "userTypes": [
+        "anonymous"
+      ],
+      "roles": "*",
+      "version": "1.1571.0"
+    }
+  ],
+  "sections": [
+    {
+      "name": "fe-section-mortgages-home-mvp",
+      "page": "fe-page-credit-ops-home",
+      "path": "*",
+      "userTypes": "*",
+      "roles": "*",
+      "version": "1.1656.2"
+    }
+  ],
+  "widgets": [
+    {
+      "name": "fe-widget-debug-panel",
+      "regions": [
+        "debug"
+      ],
+      "userTypes": "*",
+      "roles": "*",
+      "version": "1.1657.0",
+      "weight": 1
+    }
+  ]
+}
