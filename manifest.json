@@ -84,7 +84,7 @@
         "anonymous"
       ],
       "roles": "*",
-      "version": "1.1571.0-mwko9yc3"
+      "version": "1.1571.0-mwkohffg"
     },
     {
       "name": "fe-page-credit-ops-home",
@@ -93,7 +93,7 @@
         "authenticated"
       ],
       "roles": "*",
-      "version": "1.1571.0-mwko9yc3"
+      "version": "1.1571.0-mwkohffg"
     },
     {
       "name": "fe-page-invalid-issuer",
@@ -102,7 +102,7 @@
         "anonymous"
       ],
       "roles": "*",
-      "version": "1.1571.0-mwko9yc3"
+      "version": "1.1571.0-mwkohffg"
     }
   ],
   "sections": [
@@ -112,7 +112,7 @@
       "path": "*",
       "userTypes": "*",
       "roles": "*",
-      "version": "1.1656.2-mwko9yc3"
+      "version": "1.1656.2-mwkohffg"
     }
   ],
   "widgets": [
@@ -123,7 +123,7 @@
       ],
       "userTypes": "*",
       "roles": "*",
-      "version": "1.1657.0-mwko9yc3",
+      "version": "1.1657.0-mwkohffg",
       "weight": 1
     }
   ]
