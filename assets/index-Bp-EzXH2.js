@@ -12828,7 +12828,7 @@ async function lazyLoadRecorder() {
     }
 }
 async function importRecorder() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-BKGpb4hx.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-CvCCTNdT.js'),true              ?[]:void 0);
     return module.startRecording;
 }
 
@@ -13051,7 +13051,7 @@ async function lazyLoadProfiler() {
     }
 }
 async function importProfiler() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-DiO-gJUl.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-Blh-Zt84.js'),true              ?[]:void 0);
     return module.createRumProfiler;
 }
 
@@ -39218,6 +39218,811 @@ const localStorage$1 = globalThis.localStorage;
 
 const sessionStorage$1 = globalThis.sessionStorage;
 
+/** Dummy Credit Ops payloads copied from sandbox cases, for --no-auth preview. */
+const PREVIEW_CALCULATED_AT = "2026-11-17T10:13:00Z";
+const DEFAULT_OPPORTUNITY_ID = "006Sr00000YEHWrIAP";
+const EMPTY_PAGE = {
+    currentPage: 0,
+    currentPageSize: 0,
+    pageSize: 100,
+    totalCount: 0,
+    totalPages: 0,
+    hasNext: false,
+    hasPrevious: false,
+};
+const money = (value) => ({ value, currency: "AED" });
+function previewFile(id, fileName) {
+    return {
+        id,
+        documentId: `doc-${id}`,
+        docServiceDocumentId: `svc-${id}`,
+        fileName,
+        createdAt: "2026-11-17T09:32:00Z",
+        updatedAt: "2026-11-17T09:34:00Z",
+        processingStatus: "READY",
+    };
+}
+function leaf(type, fileName, isRequired = true) {
+    return {
+        type,
+        matchedFiles: fileName ? [previewFile(`${type}-${fileName}`, fileName)] : [],
+        documents: [],
+        isRequired,
+        processingStatus: "READY",
+    };
+}
+function mergeGroup(type, mergedName, children, groupKey) {
+    return {
+        type,
+        matchedFiles: [previewFile(`${groupKey}-merged`, mergedName)],
+        documents: children,
+        isRequired: true,
+        processingStatus: "READY",
+        groupKey,
+    };
+}
+const BANKS = {
+    adib: { id: "bank-adib", name: "ADIB" },
+    cbd: { id: "bank-cbd", name: "CBD" },
+    dib: { id: "bank-dib", name: "DIB" },
+};
+const LOCAL_PREVIEW_BANKS = {
+    data: [
+        {
+            ...BANKS.adib,
+            supportedMortgageTypes: ["ISLAMIC"],
+            supportedPropertyStatuses: ["READY", "LAND_ONLY", "UNDER_CONSTRUCTION"],
+            supportedRelationshipTypes: ["SPOUSE", "PARENT", "SIBLING", "CHILD", "OTHER"],
+            supportedDocLevels: ["FULL_DOC", "LOW_DOC"],
+        },
+        {
+            ...BANKS.cbd,
+            supportedMortgageTypes: ["CONVENTIONAL"],
+            supportedPropertyStatuses: ["READY", "LAND_ONLY", "UNDER_CONSTRUCTION"],
+            supportedRelationshipTypes: ["SPOUSE", "PARENT", "SIBLING", "CHILD", "OTHER"],
+            supportedDocLevels: ["FULL_DOC", "LOW_DOC"],
+        },
+        {
+            ...BANKS.dib,
+            supportedMortgageTypes: ["ISLAMIC"],
+            supportedPropertyStatuses: ["READY", "LAND_ONLY", "UNDER_CONSTRUCTION"],
+            supportedRelationshipTypes: ["SPOUSE", "PARENT", "SIBLING", "CHILD", "OTHER"],
+            supportedDocLevels: ["FULL_DOC", "LOW_DOC"],
+        },
+    ],
+    metadata: { ...EMPTY_PAGE, currentPageSize: 3, totalCount: 3, totalPages: 1 },
+};
+const DOCUMENT_TYPES = [
+    { code: "PASSPORT", description: "Passport", scope: "GENERIC", level: "APPLICANT" },
+    { code: "EMIRATES_ID", description: "Emirates ID", scope: "GENERIC", level: "APPLICANT" },
+    { code: "RESIDENCE_VISA", description: "Residence Visa", scope: "GENERIC", level: "APPLICANT" },
+    { code: "KYC", description: "Know your Customer (KYC)", scope: "GENERIC", level: "APPLICANT" },
+    { code: "BANK_STATEMENT", description: "Bank Statement", scope: "GENERIC", level: "APPLICANT" },
+    {
+        code: "BANK_STATEMENT_CUMULATIVE",
+        description: "Cumulative Bank Statement",
+        scope: "GENERIC",
+        level: "APPLICANT",
+    },
+    { code: "SALARY_CERTIFICATE", description: "Salary Certificate", scope: "GENERIC", level: "APPLICANT" },
+    { code: "PAYSLIP", description: "Payslip", scope: "GENERIC", level: "APPLICANT" },
+    { code: "LABOUR_CONTRACT", description: "Labour Contract", scope: "GENERIC", level: "APPLICANT" },
+    { code: "EXPERIENCE_LETTER", description: "Experience Letter", scope: "GENERIC", level: "APPLICANT" },
+    { code: "SHARE_CERTIFICATE", description: "Share Certificate", scope: "GENERIC", level: "APPLICANT" },
+    {
+        code: "ADIB_FTS_CONSENT_FORM",
+        description: "ADIB FTS Consent Form",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "ADIB_HOME_FINANCE_KFS",
+        description: "ADIB Home Finance KFS",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "ADIB_HOME_FINANCE_TAKAFUL_KFS",
+        description: "ADIB Home Finance Takaful Scheme KFS",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "ADIB_HOME_FINANCE_TERMS",
+        description: "ADIB Home Finance Terms & Conditions",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "ADIB_HOME_FINANCE_APPLICATION",
+        description: "ADIB Home Finance Application",
+        scope: "BANK_SPECIFIC",
+        level: "CASE",
+    },
+    {
+        code: "DIB_LEAD_REFERRAL",
+        description: "DIB Lead Referral",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "DIB_PURPOSE_OF_FUNDS",
+        description: "DIB Purpose of Funds",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+    {
+        code: "DIB_THIRD_PARTY_AUTH",
+        description: "DIB Third Party Auth",
+        scope: "BANK_SPECIFIC",
+        level: "APPLICANT",
+    },
+];
+const LOCAL_PREVIEW_DOCUMENT_TYPE_CODES = {
+    data: DOCUMENT_TYPES.map((entry) => ({ ...entry, bankId: BANKS.adib.id })),
+    metadata: {
+        ...EMPTY_PAGE,
+        currentPageSize: DOCUMENT_TYPES.length,
+        totalCount: DOCUMENT_TYPES.length,
+        totalPages: 1,
+    },
+};
+const LOCAL_PREVIEW_EARNING_TYPES = {
+    data: [
+        "FIXED_ITEM",
+        "HOUSING_ALLOWANCE",
+        "AIRFARE_ALLOWANCE",
+        "FLYING_ALLOWANCE",
+        "INCENTIVE",
+        "EDUCATION_ALLOWANCE",
+        "RENTAL",
+        "OTHER",
+    ],
+};
+const LOCAL_PREVIEW_LIABILITY_TYPES = {
+    data: ["FIXED_ITEM", "LOAN", "OTHER"],
+};
+function pritiChecklist() {
+    return {
+        applicantDocuments: [
+            {
+                applicant: {
+                    id: "ap-priti",
+                    fullName: "Priti Mishra",
+                    role: "MAIN",
+                    employmentType: "SALARIED",
+                    residencyType: "RESIDENT",
+                },
+                stats: { total: 17, received: 13 },
+                documents: [
+                    mergeGroup("KYC", "KYC.pdf", [
+                        leaf("PASSPORT", "PASSPORT.pdf 2.pdf"),
+                        leaf("EMIRATES_ID", "Adobe Scan 16 Oct 2026.pdf"),
+                        leaf("RESIDENCE_VISA", "WhatsApp image 2026-11-16 at 10.13.57 AM.pdf"),
+                    ], "DOC:kyc-priti"),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "2026-09-22_Statement.pdf")], "ACCOUNT_NUMBER:1"),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "OCTOBER 2026.pdf")], "ACCOUNT_NUMBER:2"),
+                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "Stamped_Account_Statement_7004-1.pdf")], "ACCOUNT_NUMBER:3"),
+                    leaf("ADIB_FTS_CONSENT_FORM", "Ms Priti ADIB_FTS_Form__2.pdf"),
+                    leaf("ADIB_HOME_FINANCE_KFS", "Ms Priti ADIB_KFS_Form__4.pdf"),
+                    leaf("ADIB_HOME_FINANCE_TAKAFUL_KFS", "Ms priti ADIB_Takaful_KFS_10.pdf"),
+                    leaf("ADIB_HOME_FINANCE_TERMS", "Ms Priti ADIB_Terms_Conditions_Form_11.pdf"),
+                    leaf("SALARY_CERTIFICATE", "19361 - Dr. Priti Mishra - ADIB - Salary Certificate.pdf"),
+                    leaf("LABOUR_CONTRACT", "contract (1).pdf", false),
+                    leaf("EXPERIENCE_LETTER", "SL Priti.pdf", false),
+                    leaf("SHARE_CERTIFICATE", "Visa Cancellation Priti.pdf", false),
+                ],
+            },
+        ],
+        caseDocuments: [
+            leaf("ADIB_HOME_FINANCE_APPLICATION", "Ms Priti ADIB_Home_Finance_-_Smart_Application_Form_V9_3.pdf"),
+        ],
+        unclassifiedFiles: [],
+    };
+}
+function checklistFor(applicant) {
+    const priti = pritiChecklist();
+    return {
+        ...priti,
+        applicantDocuments: priti.applicantDocuments.map((group) => ({
+            ...group,
+            applicant: {
+                ...applicant,
+                employmentType: "SALARIED",
+                residencyType: "RESIDENT",
+            },
+        })),
+    };
+}
+const LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS = {
+    data: [
+        {
+            id: "ba-priti-1",
+            mortgageApplication: {
+                id: "006Sr00000YEHWrIAP",
+                applicantFullName: "Priti Mishra",
+                applicants: [{ id: "ap-priti", fullName: "Priti Mishra", role: "MAIN" }],
+            },
+            bank: BANKS.adib,
+            amount: 120000000,
+            currency: "AED",
+            status: "READY",
+            createdAt: "2026-11-17T09:32:00Z",
+            updatedAt: "2026-11-17T09:34:00Z",
+            createdById: "local-preview",
+            creatorName: "Local Preview",
+        },
+        {
+            id: "ba-marc-1",
+            mortgageApplication: {
+                id: "006Sr00000XuVEDIA3",
+                applicantFullName: "Marc Aoun",
+                applicants: [{ id: "ap-marc", fullName: "Marc Aoun", role: "MAIN" }],
+            },
+            bank: BANKS.adib,
+            amount: 150000000,
+            currency: "AED",
+            status: "READY",
+            createdAt: "2026-11-17T10:13:00Z",
+            updatedAt: "2026-11-17T10:13:00Z",
+            createdById: "local-preview",
+            creatorName: "Local Preview",
+        },
+        {
+            id: "ba-sumit-1",
+            mortgageApplication: {
+                id: "006Sr00000YEJILIAX",
+                applicantFullName: "Sumit Goel",
+                applicants: [{ id: "ap-sumit", fullName: "Sumit Goel", role: "MAIN" }],
+            },
+            bank: BANKS.cbd,
+            amount: 100000000,
+            currency: "AED",
+            status: "READY",
+            createdAt: "2026-11-17T09:00:00Z",
+            updatedAt: "2026-11-17T09:00:00Z",
+            createdById: "local-preview",
+            creatorName: "Local Preview",
+        },
+        {
+            id: "ba-hamad-1",
+            mortgageApplication: {
+                id: "006Sr00000YCHvxIAH",
+                applicantFullName: "Hamad Sowais",
+                applicants: [{ id: "ap-hamad", fullName: "Hamad Sowais", role: "MAIN" }],
+            },
+            bank: BANKS.dib,
+            amount: 115000000,
+            currency: "AED",
+            status: "PROCESSING",
+            createdAt: "2026-11-17T10:14:00Z",
+            updatedAt: "2026-11-17T10:14:00Z",
+            createdById: "local-preview",
+            creatorName: "Local Preview",
+        },
+    ],
+    metadata: {
+        currentPage: 0,
+        currentPageSize: 25,
+        pageSize: 25,
+        totalCount: 4,
+        totalPages: 1,
+        hasNext: false,
+        hasPrevious: false,
+    },
+};
+const CASE_HEADERS = {
+    "ba-priti-1": {
+        type: "ISLAMIC",
+        transactionType: "RESALE",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+    },
+    "ba-marc-1": {
+        type: "ISLAMIC",
+        transactionType: "RESALE",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+    },
+    "ba-sumit-1": {
+        type: "CONVENTIONAL",
+        transactionType: "BUYOUT_EQUITY",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+    },
+    "ba-hamad-1": {
+        type: "ISLAMIC",
+        transactionType: "BUYOUT_EQUITY",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+    },
+};
+function localPreviewBankApplicationDetail(id, row) {
+    const header = CASE_HEADERS[id] ?? {
+        type: row?.bank.name === "CBD" ? "CONVENTIONAL" : "ISLAMIC",
+        transactionType: "RESALE",
+        propertyType: "RESIDENTIAL",
+        propertyStatus: "READY",
+    };
+    const applicant = row?.mortgageApplication.applicants[0] ?? {
+        id: "ap-priti",
+        fullName: "Priti Mishra",
+        role: "MAIN",
+    };
+    return {
+        id,
+        mortgageApplicationId: row?.mortgageApplication.id ?? DEFAULT_OPPORTUNITY_ID,
+        type: header.type,
+        amount: row?.amount ?? 120000000,
+        currency: row?.currency ?? "AED",
+        status: row?.status ?? "READY",
+        transactionType: header.transactionType,
+        propertyType: header.propertyType,
+        propertyStatus: header.propertyStatus,
+        opportunityId: row?.mortgageApplication.id ?? DEFAULT_OPPORTUNITY_ID,
+        bank: row?.bank ?? BANKS.adib,
+        unzipInProgress: false,
+        checklist: checklistFor(applicant),
+    };
+}
+function policyCheck(id, title, category, ordinal, status = "PASS") {
+    return {
+        id,
+        ruleCode: id.toUpperCase(),
+        title,
+        category,
+        severity: "BLOCKING",
+        status,
+        ordinal,
+        applicantId: null,
+        comparison: null,
+        waiver: null,
+    };
+}
+function localPreviewPolicyChecks() {
+    return {
+        calculatedAt: PREVIEW_CALCULATED_AT,
+        data: [
+            policyCheck("policy-age-min", "Applicant must be at least 21 years old.", "IDENTITY", 1),
+            policyCheck("policy-age-max", "Applicant must be no older than 65 years old (UAE Resident).", "IDENTITY", 2),
+            policyCheck("policy-service", "Applicant must have at least 6 months of service with their current employer.", "EMPLOYMENT", 1),
+            policyCheck("policy-loan-min", "Requested loan amount must be at least AED 250,000.", "FINANCIAL", 1),
+            policyCheck("policy-loan-max", "Requested loan amount must be no more than AED 35,000,000.", "FINANCIAL", 2),
+        ],
+        skipped: [],
+    };
+}
+function validationCheck(params) {
+    return {
+        id: params.id,
+        ruleCode: params.id.toUpperCase(),
+        title: params.title,
+        failTitle: params.title,
+        category: params.category,
+        severity: params.severity,
+        status: params.status,
+        ordinal: params.ordinal,
+        applicantId: "ap-hamad",
+        comparison: params.comparison
+            ? {
+                subject: { ...params.comparison.subject, documentId: "doc-subject" },
+                target: params.comparison.target
+                    ? { ...params.comparison.target, documentId: "doc-target" }
+                    : null,
+            }
+            : null,
+        waiver: null,
+    };
+}
+function localPreviewValidationChecks(id) {
+    if (id !== "ba-hamad-1") {
+        return {
+            calculatedAt: PREVIEW_CALCULATED_AT,
+            data: [
+                validationCheck({
+                    id: "val-passport-valid",
+                    title: "Passport is not expired",
+                    category: "IDENTITY",
+                    severity: "BLOCKING",
+                    status: "PASS",
+                    ordinal: 1,
+                }),
+                validationCheck({
+                    id: "val-salary-designation",
+                    title: "Salary certificate states a designation",
+                    category: "EMPLOYMENT",
+                    severity: "BLOCKING",
+                    status: "PASS",
+                    ordinal: 1,
+                }),
+            ],
+            skipped: [],
+        };
+    }
+    return {
+        calculatedAt: "2026-11-17T10:14:00Z",
+        data: [
+            validationCheck({
+                id: "val-passport-expired",
+                title: "Passport is not expired",
+                category: "IDENTITY",
+                severity: "BLOCKING",
+                status: "FAIL",
+                ordinal: 1,
+                comparison: {
+                    subject: { documentType: "PASSPORT", field: "expiry_date", value: "2025-07-23" },
+                },
+            }),
+            validationCheck({
+                id: "val-designation",
+                title: "Salary certificate states a designation",
+                category: "EMPLOYMENT",
+                severity: "BLOCKING",
+                status: "FAIL",
+                ordinal: 1,
+                comparison: {
+                    subject: { documentType: "SALARY_CERTIFICATE", field: "designation", value: "" },
+                },
+            }),
+            validationCheck({
+                id: "val-lead-name",
+                title: "DIB Lead Referral name matches an applicant's passport",
+                category: "BANK_FORMS",
+                severity: "BLOCKING",
+                status: "FAIL",
+                ordinal: 1,
+                comparison: {
+                    subject: {
+                        documentType: "DIB_LEAD_REFERRAL",
+                        field: "first_name+last_name",
+                        value: "HAMADSOWAIS",
+                    },
+                    target: {
+                        documentType: "PASSPORT",
+                        field: "first_name+last_name",
+                        value: "HAMADMALALLASALEMMALLASOWAIS",
+                    },
+                },
+            }),
+            validationCheck({
+                id: "val-lead-complete",
+                title: "DIB Lead Referral is complete and signed",
+                category: "BANK_FORMS",
+                severity: "ADVISORY",
+                status: "FAIL",
+                ordinal: 2,
+                comparison: {
+                    subject: {
+                        documentType: "DIB_LEAD_REFERRAL",
+                        field: "all_required_fields_complete",
+                        value: "false",
+                    },
+                },
+            }),
+            validationCheck({
+                id: "val-purpose-complete",
+                title: "DIB Purpose of Funds is complete and signed",
+                category: "BANK_FORMS",
+                severity: "ADVISORY",
+                status: "FAIL",
+                ordinal: 3,
+                comparison: {
+                    subject: {
+                        documentType: "DIB_PURPOSE_OF_FUNDS",
+                        field: "all_required_fields_complete",
+                        value: "false",
+                    },
+                },
+            }),
+            validationCheck({
+                id: "val-third-party-complete",
+                title: "DIB Third Party Auth is complete and signed",
+                category: "BANK_FORMS",
+                severity: "ADVISORY",
+                status: "FAIL",
+                ordinal: 4,
+                comparison: {
+                    subject: {
+                        documentType: "DIB_THIRD_PARTY_AUTH",
+                        field: "all_required_fields_complete",
+                        value: "false",
+                    },
+                },
+            }),
+        ],
+        skipped: [],
+    };
+}
+function earning(params) {
+    return {
+        id: params.id,
+        earningType: params.earningType,
+        amount: money(params.amount),
+        eligibleAmount: money(params.eligible),
+        documentType: params.documentType,
+        allocation: params.allocation,
+        frequency: params.frequency,
+        description: params.description,
+        source: "EXTRACTION",
+    };
+}
+function localPreviewEligibility(id, applicantName = "Marc Aoun") {
+    if (id === "ba-sumit-1") {
+        return {
+            applicants: [
+                {
+                    id: "ap-sumit",
+                    name: "Sumit Goel",
+                    role: "MAIN",
+                    totalEarnings: 2100,
+                    totalLiabilities: 0,
+                    currency: "AED",
+                    earnings: [
+                        earning({
+                            id: "sumit-salary",
+                            description: "Salary",
+                            earningType: "OTHER",
+                            documentType: "BANK_STATEMENT",
+                            amount: 18939,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "AVERAGE",
+                        }),
+                        earning({
+                            id: "sumit-hra",
+                            description: "HRA",
+                            earningType: "HOUSING_ALLOWANCE",
+                            documentType: "PAYSLIP",
+                            amount: 2100,
+                            eligible: 2100,
+                            allocation: 100,
+                            frequency: "ANNUAL",
+                        }),
+                        earning({
+                            id: "sumit-basic",
+                            description: "Basic",
+                            earningType: "OTHER",
+                            documentType: "PAYSLIP",
+                            amount: 10500,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "AVERAGE",
+                        }),
+                        earning({
+                            id: "sumit-variable",
+                            description: "Other Allowance Variable",
+                            earningType: "OTHER",
+                            documentType: "PAYSLIP",
+                            amount: 138.08,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "ANNUAL",
+                        }),
+                        earning({
+                            id: "sumit-airfare",
+                            description: "Air Fare Payment",
+                            earningType: "AIRFARE_ALLOWANCE",
+                            documentType: "PAYSLIP",
+                            amount: 166.67,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "ANNUAL",
+                        }),
+                        earning({
+                            id: "sumit-transport",
+                            description: "Transport Allowance",
+                            earningType: "OTHER",
+                            documentType: "PAYSLIP",
+                            amount: 2800,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "AVERAGE",
+                        }),
+                        earning({
+                            id: "sumit-certificate",
+                            description: "Salary certificate",
+                            earningType: "OTHER",
+                            documentType: "SALARY_CERTIFICATE",
+                            amount: 21000,
+                            eligible: 0,
+                            allocation: 0,
+                            frequency: "MONTHLY",
+                        }),
+                    ],
+                    liabilities: [],
+                },
+            ],
+            summary: {
+                totalEarnings: 2100,
+                totalLiabilities: 0,
+                currency: "AED",
+                dbr: 0,
+                maxDbrPercent: 50,
+                dbrWithinCap: true,
+                effectiveTenorBoundBy: "HOUSEHOLD_MAX",
+                tenor: {
+                    requestedTenorMonths: 293,
+                    regulatorTenorMonths: 300,
+                    householdTenorMonths: 293,
+                    overriddenTenorMonths: null,
+                },
+                effectiveTenorApplicant: {
+                    role: "MAIN",
+                    currentAge: { years: 40, months: 4 },
+                    ageAtMaturity: { years: 64, months: 9 },
+                },
+                stressRate: { stressRatePercent: 0, overriddenStressRatePercent: null },
+                requestedLoan: { requestedLoanAmount: 100000000, overriddenRequestedLoanAmount: null },
+                requestedLoanEmi: 3412.97,
+                newDbr: 162.5,
+                newDbrWithinCap: false,
+                maxPermissibleLoanSource: "CENTRAL_BANK",
+                emiCapacity: 1050,
+                maxLoanAnnuity: 307650,
+                centralBankCap: 176400,
+                maxPermissibleLoan: 176400,
+                affordable: false,
+            },
+        };
+    }
+    return {
+        applicants: [
+            {
+                id: "ap-marc",
+                name: applicantName,
+                role: "MAIN",
+                totalEarnings: 24140,
+                totalLiabilities: 9439,
+                currency: "AED",
+                earnings: [
+                    earning({
+                        id: "marc-salary",
+                        description: "Salary",
+                        earningType: "FIXED_ITEM",
+                        documentType: "BANK_STATEMENT",
+                        amount: 24140,
+                        eligible: 24140,
+                        allocation: 100,
+                        frequency: "MONTHLY",
+                    }),
+                    earning({
+                        id: "marc-certificate",
+                        description: "Salary certificate",
+                        earningType: "OTHER",
+                        documentType: "SALARY_CERTIFICATE",
+                        amount: 24140,
+                        eligible: 0,
+                        allocation: 0,
+                        frequency: "MONTHLY",
+                    }),
+                ],
+                liabilities: [
+                    {
+                        id: "marc-loan",
+                        liabilityType: "LOAN",
+                        amount: money(9439),
+                        eligibleAmount: money(9439),
+                        documentType: "BANK_STATEMENT",
+                        allocation: 100,
+                        frequency: "MONTHLY",
+                        description: "INSTL_RECOVERY-PL-AC-515959XXXX0001-APPID-101964811",
+                        source: "EXTRACTION",
+                    },
+                ],
+            },
+        ],
+        summary: {
+            totalEarnings: 24140,
+            totalLiabilities: 9439,
+            currency: "AED",
+            dbr: 39.1,
+            maxDbrPercent: 50,
+            dbrWithinCap: true,
+            effectiveTenorBoundBy: "HOUSEHOLD_MAX",
+            tenor: {
+                requestedTenorMonths: 300,
+                regulatorTenorMonths: 300,
+                householdTenorMonths: 300,
+                overriddenTenorMonths: null,
+            },
+            effectiveTenorApplicant: {
+                role: "MAIN",
+                currentAge: { years: 26, months: 1 },
+                ageAtMaturity: { years: 51, months: 1 },
+            },
+            stressRate: { stressRatePercent: 5.8, overriddenStressRatePercent: null },
+            requestedLoan: { requestedLoanAmount: 150000000, overriddenRequestedLoanAmount: null },
+            requestedLoanEmi: 9481.97,
+            newDbr: 78.4,
+            newDbrWithinCap: false,
+            maxPermissibleLoanSource: "ANNUITY",
+            emiCapacity: 2631,
+            maxLoanAnnuity: 416210.92,
+            centralBankCap: 2027760,
+            maxPermissibleLoan: 416210.92,
+            affordable: false,
+        },
+    };
+}
+const OPPORTUNITIES = {
+    "006Sr00000YEHWrIAP": {
+        firstName: "Priti",
+        lastName: "Mishra",
+        bankName: "ADIB",
+        mortgageType: "ISLAMIC",
+        transactionType: "RESALE",
+        loanAmount: 1200000,
+        tenorMonths: 240,
+    },
+    "006Sr00000XuVEDIA3": {
+        firstName: "Marc",
+        lastName: "Aoun",
+        bankName: "ADIB",
+        mortgageType: "ISLAMIC",
+        transactionType: "RESALE",
+        loanAmount: 1500000,
+        tenorMonths: 300,
+    },
+    "006Sr00000YEJILIAX": {
+        firstName: "Sumit",
+        lastName: "Goel",
+        bankName: "CBD",
+        mortgageType: "CONVENTIONAL",
+        transactionType: "BUYOUT_EQUITY",
+        loanAmount: 1000000,
+        tenorMonths: 293,
+    },
+    "006Sr00000YCHvxIAH": {
+        firstName: "Hamad",
+        lastName: "Sowais",
+        bankName: "DIB",
+        mortgageType: "ISLAMIC",
+        transactionType: "BUYOUT_EQUITY",
+        loanAmount: 1150000,
+        tenorMonths: 240,
+    },
+};
+function localPreviewOpportunity(id) {
+    const opportunity = OPPORTUNITIES[id] ?? OPPORTUNITIES[DEFAULT_OPPORTUNITY_ID];
+    return {
+        opportunityDetails: {
+            mortgageType: opportunity.mortgageType,
+            applicantRole: "MAIN",
+            residencyType: "RESIDENT",
+            transactionType: opportunity.transactionType,
+            propertyType: "RESIDENTIAL",
+            propertyStatus: "READY",
+            loanAmount: opportunity.loanAmount,
+        },
+        applicant: {
+            firstName: opportunity.firstName,
+            lastName: opportunity.lastName,
+            employmentType: "SALARIED",
+        },
+        applicants: [
+            {
+                applicantRole: "MAIN",
+                firstName: opportunity.firstName,
+                lastName: opportunity.lastName,
+                email: `${opportunity.firstName.toLowerCase()}@example.com`,
+                phone: "+971500000000",
+                residencyType: "RESIDENT",
+                employmentType: "SALARIED",
+            },
+        ],
+        banks: [
+            {
+                name: opportunity.bankName,
+                mortgageType: opportunity.mortgageType,
+                tenorMonths: opportunity.tenorMonths,
+            },
+        ],
+    };
+}
+function previewBankById(id) {
+    return LOCAL_PREVIEW_BANKS.data.find((bank) => bank.id === id) ?? LOCAL_PREVIEW_BANKS.data[0];
+}
+
 /** Minimal approved user so --no-auth can clear portal gates without VPN. */
 const LOCAL_PREVIEW_USER = {
     id: "local-preview",
@@ -39236,108 +40041,6 @@ const LOCAL_PREVIEW_USER_API = {
     accountStatus: "APPROVED",
     status: "enabled",
 };
-/** Enough rows for Credit Ops Ops Queue to leave the skeleton without VPN. */
-const LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS = {
-    data: [
-        {
-            id: "ba-local-1",
-            mortgageApplication: {
-                id: "ma-local-1",
-                applicantFullName: "Alex Preview",
-                applicants: [{ id: "ap-1", fullName: "Alex Preview", role: "MAIN" }],
-            },
-            bank: { id: "bank-local-1", name: "Preview Bank" },
-            amount: 150000000,
-            currency: "AED",
-            status: "PROCESSING",
-            createdAt: "2026-11-01T10:00:00Z",
-            updatedAt: "2026-11-10T12:00:00Z",
-            createdById: "local-preview",
-            creatorName: "Local Preview",
-        },
-        {
-            id: "ba-local-2",
-            mortgageApplication: {
-                id: "ma-local-2",
-                applicantFullName: "Sam Sample",
-                applicants: [{ id: "ap-2", fullName: "Sam Sample", role: "MAIN" }],
-            },
-            bank: { id: "bank-local-2", name: "Demo Bank" },
-            amount: 225000000,
-            currency: "AED",
-            status: "READY",
-            createdAt: "2026-10-15T08:30:00Z",
-            updatedAt: "2026-11-12T09:15:00Z",
-            createdById: "local-preview",
-            creatorName: "Local Preview",
-        },
-    ],
-    metadata: {
-        currentPage: 0,
-        currentPageSize: 25,
-        pageSize: 25,
-        totalCount: 2,
-        totalPages: 1,
-        hasNext: false,
-        hasPrevious: false,
-    },
-};
-const LOCAL_PREVIEW_EMPTY_PAGE = {
-    currentPage: 0,
-    currentPageSize: 0,
-    pageSize: 100,
-    totalCount: 0,
-    totalPages: 0,
-    hasNext: false,
-    hasPrevious: false,
-};
-const LOCAL_PREVIEW_DOCUMENT_TYPE_CODES = {
-    data: [
-        {
-            code: "PASSPORT",
-            description: "Passport",
-            scope: "GENERIC",
-            level: "APPLICANT",
-            bankId: "bank-local-1",
-        },
-        {
-            code: "EMIRATES_ID",
-            description: "Emirates ID",
-            scope: "GENERIC",
-            level: "APPLICANT",
-            bankId: "bank-local-1",
-        },
-        {
-            code: "KYC",
-            description: "KYC",
-            scope: "GENERIC",
-            level: "APPLICANT",
-            bankId: "bank-local-1",
-        },
-        {
-            code: "BANK_STATEMENT",
-            description: "Bank statement",
-            scope: "GENERIC",
-            level: "APPLICANT",
-            bankId: "bank-local-1",
-        },
-        {
-            code: "AECB_CONSENT",
-            description: "AECB consent form",
-            scope: "BANK_SPECIFIC",
-            level: "CASE",
-            bankId: "bank-local-1",
-        },
-    ],
-    metadata: {
-        ...LOCAL_PREVIEW_EMPTY_PAGE,
-        currentPageSize: 5,
-        totalCount: 5,
-        totalPages: 1,
-    },
-};
-const DEMO_OPPORTUNITY_ID = "OPP-DEMO";
-const DEMO_CALCULATED_AT = "2026-11-16T09:00:00Z";
 /** Flags the email, eligibility, and create-case UI the demo walks through. */
 const LOCAL_PREVIEW_FEATURES = {
     schemaVersion: "2",
@@ -39367,166 +40070,6 @@ const LOCAL_PREVIEW_FEATURES = {
         },
     },
     variables: {},
-};
-const LOCAL_PREVIEW_BANKS = {
-    data: [
-        {
-            id: "bank-local-1",
-            name: "Preview Bank",
-            supportedMortgageTypes: ["CONVENTIONAL"],
-            supportedPropertyStatuses: ["READY", "LAND_ONLY", "UNDER_CONSTRUCTION"],
-            supportedRelationshipTypes: ["SPOUSE", "PARENT", "SIBLING", "CHILD", "OTHER"],
-            supportedDocLevels: ["FULL_DOC", "LOW_DOC"],
-        },
-    ],
-    metadata: {
-        ...LOCAL_PREVIEW_EMPTY_PAGE,
-        currentPageSize: 1,
-        totalCount: 1,
-        totalPages: 1,
-    },
-};
-const LOCAL_PREVIEW_OPPORTUNITY = {
-    opportunityDetails: {
-        mortgageType: "CONVENTIONAL",
-        applicantRole: "MAIN",
-        residencyType: "RESIDENT",
-        transactionType: "BUYOUT",
-        propertyType: "RESIDENTIAL",
-        propertyStatus: "READY",
-        loanAmount: 1500000,
-    },
-    applicant: {
-        firstName: "Alex",
-        lastName: "Preview",
-        employmentType: "SALARIED",
-    },
-    applicants: [
-        {
-            applicantRole: "MAIN",
-            firstName: "Alex",
-            lastName: "Preview",
-            email: "alex.preview@example.com",
-            phone: "+971500000000",
-            residencyType: "RESIDENT",
-            employmentType: "SALARIED",
-        },
-    ],
-    banks: [{ name: "Preview Bank", mortgageType: "CONVENTIONAL", tenorMonths: 240 }],
-};
-const LOCAL_PREVIEW_CHECKS = {
-    calculatedAt: DEMO_CALCULATED_AT,
-    data: [
-        {
-            id: "check-passport",
-            ruleCode: "IDENTITY_PASSPORT_NOT_EXPIRED",
-            title: "Passport is valid",
-            failTitle: "Passport is expired",
-            category: "IDENTITY",
-            severity: "BLOCKING",
-            status: "PASS",
-            ordinal: 1,
-            applicantId: "ap-demo",
-            comparison: null,
-            waiver: null,
-        },
-        {
-            id: "check-salary",
-            ruleCode: "EMPLOYMENT_SALARY_PRESENT",
-            title: "Salary document received",
-            failTitle: "Salary document missing",
-            category: "EMPLOYMENT",
-            severity: "BLOCKING",
-            status: "PASS",
-            ordinal: 1,
-            applicantId: "ap-demo",
-            comparison: null,
-            waiver: null,
-        },
-    ],
-    skipped: [],
-};
-const LOCAL_PREVIEW_POLICY_CHECKS = {
-    calculatedAt: DEMO_CALCULATED_AT,
-    data: [
-        {
-            id: "policy-ltv",
-            ruleCode: "LTV_WITHIN_CAP",
-            title: "Loan amount is within bank policy",
-            category: "FINANCIAL",
-            severity: "BLOCKING",
-            status: "PASS",
-            ordinal: 1,
-            applicantId: null,
-            comparison: { subjectValue: "1500000", targetValue: "5000000", unit: "AED" },
-            waiver: null,
-        },
-    ],
-    skipped: [],
-};
-const LOCAL_PREVIEW_ELIGIBILITY = {
-    applicants: [
-        {
-            id: "ap-demo",
-            name: "Alex Preview",
-            role: "MAIN",
-            totalEarnings: 22000,
-            totalLiabilities: 1500,
-            currency: "AED",
-            earnings: [
-                {
-                    id: "earning-salary",
-                    earningType: "FIXED_ITEM",
-                    amount: { value: 22000, currency: "AED" },
-                    eligibleAmount: { value: 22000, currency: "AED" },
-                    documentType: "PAYSLIP",
-                    allocation: 100,
-                    frequency: "MONTHLY",
-                    description: "Basic salary",
-                    source: "EXTRACTION",
-                },
-            ],
-            liabilities: [
-                {
-                    id: "liability-card",
-                    liabilityType: "LOAN",
-                    amount: { value: 1500, currency: "AED" },
-                    eligibleAmount: { value: 1500, currency: "AED" },
-                    documentType: "BANK_STATEMENT",
-                    allocation: 100,
-                    frequency: "MONTHLY",
-                    description: "Credit card",
-                    source: "EXTRACTION",
-                },
-            ],
-        },
-    ],
-    summary: {
-        totalEarnings: 22000,
-        totalLiabilities: 1500,
-        currency: "AED",
-        dbr: 32,
-        maxDbrPercent: 50,
-        dbrWithinCap: true,
-        effectiveTenorBoundBy: "REQUESTED",
-        tenor: {
-            requestedTenorMonths: 240,
-            regulatorTenorMonths: 300,
-            householdTenorMonths: 300,
-            overriddenTenorMonths: null,
-        },
-        stressRate: { stressRatePercent: 4.5, overriddenStressRatePercent: null },
-        requestedLoan: { requestedLoanAmount: 150000000, overriddenRequestedLoanAmount: null },
-        requestedLoanEmi: 8500,
-        newDbr: 41,
-        newDbrWithinCap: true,
-        maxPermissibleLoanSource: "CENTRAL_BANK",
-        emiCapacity: 8500,
-        maxLoanAnnuity: 1600000,
-        centralBankCap: 1500000,
-        maxPermissibleLoan: 1500000,
-        affordable: true,
-    },
 };
 /** Empty zip end-of-central-directory, so Generate package downloads a file. */
 const DEMO_ZIP_DOWNLOAD_URL = "data:application/zip;base64,UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==";
@@ -39560,105 +40103,32 @@ function rememberCreatedCase(rawBody) {
     const parsed = readJson(rawBody);
     const applicants = Array.isArray(parsed.applicants) ? parsed.applicants : [];
     const applicant = (applicants[0] ?? {});
-    const fullName = `${applicant.firstName ?? "Alex"} ${applicant.lastName ?? "Preview"}`.trim();
+    const fullName = `${applicant.firstName ?? "Priti"} ${applicant.lastName ?? "Mishra"}`.trim();
     const details = (parsed.opportunityDetails ?? {});
+    const banks = Array.isArray(parsed.banks) ? parsed.banks : [];
+    const bankId = banks[0]?.id;
+    const bank = previewBankById(bankId);
     const id = `ba-demo-${createdPreviewCases.length + 1}`;
     createdPreviewCases.push({
         id,
         mortgageApplication: {
-            id: details.opportunityId || DEMO_OPPORTUNITY_ID,
+            id: details.opportunityId || DEFAULT_OPPORTUNITY_ID,
             applicantFullName: fullName,
             applicants: [{ id: `ap-${id}`, fullName, role: "MAIN" }],
         },
-        bank: { id: "bank-local-1", name: "Preview Bank" },
-        amount: Math.round(Number(details.loanAmount ?? 1500000) * 100),
+        bank: { id: bank.id, name: bank.name },
+        amount: Math.round(Number(details.loanAmount ?? 1200000) * 100),
         currency: "AED",
         status: "READY",
-        createdAt: DEMO_CALCULATED_AT,
-        updatedAt: DEMO_CALCULATED_AT,
+        createdAt: PREVIEW_CALCULATED_AT,
+        updatedAt: PREVIEW_CALCULATED_AT,
         createdById: "local-preview",
         creatorName: "Local Preview",
     });
     return { id };
 }
-function previewFile(id, fileName) {
-    return {
-        id,
-        documentId: `doc-${id}`,
-        docServiceDocumentId: `svc-${id}`,
-        fileName,
-        createdAt: "2026-11-01T10:00:00Z",
-        updatedAt: "2026-11-10T12:00:00Z",
-        processingStatus: "READY",
-    };
-}
-function localPreviewBankApplicationDetail(id) {
-    const row = [...LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.data, ...createdPreviewCases].find((item) => item.id === id);
-    const applicant = row?.mortgageApplication.applicants[0] ?? {
-        id: "ap-preview",
-        fullName: "Local Preview",
-        role: "MAIN",
-    };
-    return {
-        id,
-        mortgageApplicationId: row?.mortgageApplication.id ?? "ma-local-preview",
-        type: "CONVENTIONAL",
-        amount: row?.amount ?? 150000000,
-        currency: row?.currency ?? "AED",
-        status: row?.status ?? "PROCESSING",
-        transactionType: "BUYOUT",
-        propertyType: "RESIDENTIAL",
-        propertyStatus: "READY",
-        opportunityId: row?.mortgageApplication.id ?? "ma-local-preview",
-        bank: row?.bank ?? { id: "bank-local-1", name: "Preview Bank" },
-        unzipInProgress: false,
-        checklist: {
-            applicantDocuments: [
-                {
-                    applicant: {
-                        ...applicant,
-                        employmentType: "SALARIED",
-                        residencyType: "RESIDENT",
-                    },
-                    stats: { total: 3, received: 1 },
-                    documents: [
-                        {
-                            type: "KYC",
-                            matchedFiles: [],
-                            documents: [
-                                {
-                                    type: "PASSPORT",
-                                    matchedFiles: [previewFile(`${id}-passport`, "passport.pdf")],
-                                    documents: [],
-                                    isRequired: true,
-                                    processingStatus: "READY",
-                                },
-                            ],
-                            isRequired: true,
-                            processingStatus: "READY",
-                        },
-                        {
-                            type: "EMIRATES_ID",
-                            matchedFiles: [],
-                            documents: [],
-                            isRequired: true,
-                            processingStatus: "READY",
-                        },
-                    ],
-                },
-            ],
-            caseDocuments: [
-                {
-                    type: "AECB_CONSENT",
-                    matchedFiles: [],
-                    documents: [],
-                    isRequired: true,
-                    processingStatus: "READY",
-                },
-            ],
-            unclassifiedFiles: [previewFile(`${id}-unclassified`, "scan.pdf")],
-        },
-    };
+function findPreviewRow(id) {
+    return [...LOCAL_PREVIEW_CREDIT_OPS_BANK_APPLICATIONS.data, ...createdPreviewCases].find((item) => item.id === id);
 }
 const NETWORK_PATCH_FLAG = "__huspyNoAuthNetworkPatched";
 function jsonResponse(body) {
@@ -39703,14 +40173,16 @@ function mockBodyFor(url, method, rawBody) {
         return LOCAL_PREVIEW_USER_API;
     if (/credit-ops\/bank-applications(?:\?|$)/.test(url))
         return previewList();
-    if (/\/bank-applications\/[^/?]+\/document-validation-checks(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_CHECKS;
-    }
+    const validation = url.match(/\/bank-applications\/([^/?]+)\/document-validation-checks(?:\?|$)/);
+    if (validation)
+        return localPreviewValidationChecks(validation[1]);
     if (/\/bank-applications\/[^/?]+\/bank-policy-checks(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_POLICY_CHECKS;
+        return localPreviewPolicyChecks();
     }
-    if (/\/bank-applications\/[^/?]+\/eligibility-checks(?:\?|$)/.test(url)) {
-        return LOCAL_PREVIEW_ELIGIBILITY;
+    const eligibility = url.match(/\/bank-applications\/([^/?]+)\/eligibility-checks(?:\?|$)/);
+    if (eligibility) {
+        const row = findPreviewRow(eligibility[1]);
+        return localPreviewEligibility(eligibility[1], row?.mortgageApplication.applicantFullName ?? "Marc Aoun");
     }
     if (/\/zips\/[^/?]+(?:\?|$)/.test(url)) {
         return {
@@ -39720,6 +40192,10 @@ function mockBodyFor(url, method, rawBody) {
             status: "COMPLETED",
         };
     }
+    if (/\/earning-types(?:\?|$)/.test(url))
+        return LOCAL_PREVIEW_EARNING_TYPES;
+    if (/\/liability-types(?:\?|$)/.test(url))
+        return LOCAL_PREVIEW_LIABILITY_TYPES;
     const document = url.match(/\/documents\/([^/?]+)(?:\?|$)/);
     if (document) {
         return {
@@ -39727,9 +40203,9 @@ function mockBodyFor(url, method, rawBody) {
             name: "sample-documents.zip",
             contentType: "application/zip",
             sizeInBytes: 1024,
-            createdAt: DEMO_CALCULATED_AT,
+            createdAt: PREVIEW_CALCULATED_AT,
             isUploaded: true,
-            uploadedAt: DEMO_CALCULATED_AT,
+            uploadedAt: PREVIEW_CALCULATED_AT,
             metadata: {},
             isPublic: false,
             previewUrl: "",
@@ -39739,11 +40215,12 @@ function mockBodyFor(url, method, rawBody) {
     }
     const detail = url.match(/\/api\/v1\/bank-applications\/([^/?]+)(?:\?|$)/);
     if (detail)
-        return localPreviewBankApplicationDetail(detail[1]);
+        return localPreviewBankApplicationDetail(detail[1], findPreviewRow(detail[1]));
     if (/\/document-type-codes(?:\?|$)/.test(url))
         return LOCAL_PREVIEW_DOCUMENT_TYPE_CODES;
-    if (/\/opportunities\/[^/?]+(?:\?|$)/.test(url))
-        return LOCAL_PREVIEW_OPPORTUNITY;
+    const opportunity = url.match(/\/opportunities\/([^/?]+)(?:\?|$)/);
+    if (opportunity)
+        return localPreviewOpportunity(decodeURIComponent(opportunity[1]));
     if (/\/api\/v1\/banks(?:\?|$)/.test(url))
         return LOCAL_PREVIEW_BANKS;
     return undefined;
@@ -80162,4 +80639,4 @@ init("fe-space-credit-ops");
 setFavicon();
 
 export { instrumentSetter as $, getTextContent as A, reducePrivacyLevel as B, CENSORED_STRING_MARK as C, getNodeSelfPrivacyLevel as D, ExperimentalFeature as E, PRIVACY_ATTR_NAME as F, hasChildNodes as G, isNodeShadowRoot as H, forEachChildNodes as I, timeStampNow as J, getScrollY as K, getScrollX as L, isElementNode as M, NodePrivacyLevel as N, getNodePrivacyLevel as O, PRIVACY_ATTR_VALUE_HIDDEN as P, getParentNode as Q, RumPerformanceEntryType as R, SESSION_TIME_OUT_DELAY as S, isNodeShadowHost as T, getViewportDimension as U, Observable$2 as V, throttle as W, addEventListeners as X, initViewportObservable as Y, noop$2 as Z, instrumentMethod as _, addTelemetryDebug as a, requestIdleCallback as a0, getMutationObserverConstructor as a1, monitor as a2, sendToExtension as a3, addRecord as a4, getSegmentsCount as a5, addSegment as a6, addWroteData as a7, isPageExitReason as a8, ONE_SECOND as a9, addTelemetryMetrics as aa, getEventBridge as ab, canUseEventBridge as ac, buildTags as b, createHttpRequest as c, currentDrift as d, createValueHistory as e, RumLongTaskEntryType as f, addDuration as g, addEventListener$1 as h, getGlobalObject as i, jsonStringify as j, display as k, clocksNow as l, mockable as m, clearTimeout$1 as n, objectEntries as o, elapsed as p, clocksOrigin as q, monitorError as r, setTimeout$1 as s, isExperimentalFeatureEnabled as t, shouldMaskNode as u, buildUrl$1 as v, shouldMaskAttribute as w, CENSORED_IMG_MARK as x, sanitizeIfLongDataUrl as y, isSafari as z };
-//# sourceMappingURL=index-B4oTNjvr.js.map
+//# sourceMappingURL=index-Bp-EzXH2.js.map
