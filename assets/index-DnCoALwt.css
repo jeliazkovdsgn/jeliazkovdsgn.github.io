@@ -5470,7 +5470,7 @@ input[type="search"]:hover::-webkit-search-cancel-button {
   animation: .2s ease-out both fadeInUp;
 }
 
-#root, [data-fe-scope^="fe-section-mortgages"], [data-fe-scope^="fe-page-credit-ops"], [data-fe-scope^="fe-section-mortgages"][data-fe-scope], [data-fe-scope^="fe-page-credit-ops"][data-fe-scope] {
+#root, [data-fe-scope^="fe-section-mortgages"], [data-fe-scope^="fe-page-credit-ops"], [data-fe-scope^="fe-section-mortgages"][data-fe-scope], [data-fe-scope^="fe-page-credit-ops"][data-fe-scope], [data-slot="dialog-content"] {
   --background: #f2f1ee;
   --foreground: #1f1f1f;
   --foreground-secondary: #71706f;
@@ -5496,9 +5496,15 @@ input[type="search"]:hover::-webkit-search-cancel-button {
   --hds-prim-neutral-regular-300: var(--muted-foreground);
   --hds-prim-neutral-regular-400: var(--muted-foreground);
   --hds-prim-neutral-regular-700: var(--foreground-secondary);
+  --color-grey-45: var(--background);
+  --color-grey-60: var(--border);
+  --color-grey-200: var(--border);
+  --color-grey-300: var(--muted-foreground);
+  --color-grey-400: var(--muted-foreground);
+  --color-grey-700: var(--foreground-secondary);
 }
 
-#root.dark, .dark #root, .dark [data-fe-scope^="fe-section-mortgages"], .dark [data-fe-scope^="fe-page-credit-ops"], .dark [data-fe-scope^="fe-section-mortgages"][data-fe-scope], .dark [data-fe-scope^="fe-page-credit-ops"][data-fe-scope] {
+#root.dark, .dark #root, .dark [data-fe-scope^="fe-section-mortgages"], .dark [data-fe-scope^="fe-page-credit-ops"], .dark [data-fe-scope^="fe-section-mortgages"][data-fe-scope], .dark [data-fe-scope^="fe-page-credit-ops"][data-fe-scope], .dark [data-slot="dialog-content"] {
   --background: #111;
   --foreground: #fefefe;
   --foreground-secondary: #a1a09e;
@@ -5516,12 +5522,52 @@ input[type="search"]:hover::-webkit-search-cancel-button {
   --accent-foreground: #fefefe;
   --border: #292929;
   --input: #292929;
+  --color-border: #292929;
+  --color-input: #292929;
   --hds-prim-neutral-regular-45: var(--background);
   --hds-prim-neutral-regular-60: var(--border);
   --hds-prim-neutral-regular-200: var(--border);
   --hds-prim-neutral-regular-300: var(--muted-foreground);
   --hds-prim-neutral-regular-400: var(--muted-foreground);
   --hds-prim-neutral-regular-700: var(--foreground-secondary);
+  --color-grey-45: var(--background);
+  --color-grey-60: var(--border);
+  --color-grey-200: var(--border);
+  --color-grey-300: var(--muted-foreground);
+  --color-grey-400: var(--muted-foreground);
+  --color-grey-700: var(--foreground-secondary);
+  scrollbar-width: thin;
+  scrollbar-color: #292929 transparent;
+}
+
+.dark [data-slot="dialog-footer"] {
+  border-top-color: #292929;
+}
+
+.dark [data-slot="dialog-content"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark [data-slot="dialog-content"] ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark [data-slot="dialog-content"]::-webkit-scrollbar-track {
+  background: none;
+}
+
+.dark [data-slot="dialog-content"] ::-webkit-scrollbar-track {
+  background: none;
+}
+
+.dark [data-slot="dialog-content"]::-webkit-scrollbar-thumb {
+  background: #292929;
+  border-radius: 8px;
+}
+
+.dark [data-slot="dialog-content"] ::-webkit-scrollbar-thumb {
+  background: #292929;
+  border-radius: 8px;
 }
 
 @property --tw-translate-x {
