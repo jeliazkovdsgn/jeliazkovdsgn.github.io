@@ -29625,9 +29625,9 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
 			  }, []);
 			};
 
-			const LOGO_BLACK = "images/logos/huspy-logo-black_v1.svg";
+			const LOGO_WHITE = "images/logos/huspy-logo-white_v1.svg";
 			function AppBar() {
-			  const logoUrl = useAssetUrl(LOGO_BLACK);
+			  const logoUrl = useAssetUrl(LOGO_WHITE);
 			  const navigate = useNavigate();
 			  const userName = window.huspy.auth.user?.fullName?.trim();
 			  return /* @__PURE__ */ React.createElement("header", { className: "flex h-14 items-center justify-between border-b border-border bg-card px-6" }, /* @__PURE__ */ React.createElement(
