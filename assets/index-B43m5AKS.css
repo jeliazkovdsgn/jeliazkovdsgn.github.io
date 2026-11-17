@@ -5544,6 +5544,10 @@ input[type="search"]:hover::-webkit-search-cancel-button {
   border-top-color: #292929;
 }
 
+.dark #splash-screen img, .dark header img[alt="Huspy"] {
+  filter: brightness(0) invert();
+}
+
 .dark [data-slot="dialog-content"]::-webkit-scrollbar {
   width: 8px;
 }

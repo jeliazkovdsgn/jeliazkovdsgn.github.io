@@ -12828,7 +12828,7 @@ async function lazyLoadRecorder() {
     }
 }
 async function importRecorder() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-CulglM82.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "recorder" */ './startRecording-BZgoLEc9.js'),true              ?[]:void 0);
     return module.startRecording;
 }
 
@@ -13051,7 +13051,7 @@ async function lazyLoadProfiler() {
     }
 }
 async function importProfiler() {
-    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-D-UAx0uK.js'),true              ?[]:void 0);
+    const module = await __vitePreload(() => import(/* webpackChunkName: "profiler" */ './profiler-CZFcw1U5.js'),true              ?[]:void 0);
     return module.createRumProfiler;
 }
 
@@ -39384,6 +39384,7 @@ const LOCAL_PREVIEW_LIABILITY_TYPES = {
 };
 function checklistFor(applicant) {
     const prefix = `${applicant.id}--`;
+    const visaMissing = applicant.id === "ap-marc";
     const passportFile = applicant.id === "ap-sumit" ? "Passport_Sumit Goel.pdf" : "PASSPORT.pdf 2.pdf";
     const statementFile = applicant.id === "ap-marc"
         ? "Authenticated_E-Statement_04Nov2026_201600887_2101_unlocked.pdf"
@@ -39395,17 +39396,16 @@ function checklistFor(applicant) {
                     ...applicant,
                     employmentType: "SALARIED",
                     residencyType: "RESIDENT",
+                    nameAsPerPassport: applicant.fullName,
                 },
-                stats: { total: 17, received: 13 },
+                stats: { total: 15, received: visaMissing ? 10 : 11 },
                 documents: [
                     mergeGroup("KYC", "KYC.pdf", [
                         leaf("PASSPORT", passportFile, true, prefix),
                         leaf("EMIRATES_ID", "Adobe Scan 16 Oct 2026.pdf", true, prefix),
-                        leaf("RESIDENCE_VISA", "WhatsApp image 2026-11-16 at 10.13.57 AM.pdf", true, prefix),
+                        leaf("RESIDENCE_VISA", visaMissing ? null : "WhatsApp image 2026-11-16 at 10.13.57 AM.pdf", true, prefix),
                     ], "DOC:kyc", prefix),
                     mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", statementFile, true, prefix)], "ACCOUNT_NUMBER:1", prefix),
-                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "OCTOBER 2026.pdf", true, prefix)], "ACCOUNT_NUMBER:2", prefix),
-                    mergeGroup("BANK_STATEMENT_CUMULATIVE", "BANK_STATEMENT_CUMULATIVE.pdf", [leaf("BANK_STATEMENT", "Stamped_Account_Statement_7004-1.pdf", true, prefix)], "ACCOUNT_NUMBER:3", prefix),
                     leaf("ADIB_FTS_CONSENT_FORM", "Ms Priti ADIB_FTS_Form__2.pdf", true, prefix),
                     leaf("ADIB_HOME_FINANCE_KFS", "Ms Priti ADIB_KFS_Form__4.pdf", true, prefix),
                     leaf("ADIB_HOME_FINANCE_TAKAFUL_KFS", "Ms priti ADIB_Takaful_KFS_10.pdf", true, prefix),
@@ -39551,6 +39551,7 @@ function localPreviewBankApplicationDetail(id, row) {
         opportunityId: row?.mortgageApplication.id ?? DEFAULT_OPPORTUNITY_ID,
         bank: row?.bank ?? BANKS.adib,
         unzipInProgress: false,
+        ltvPercent: 80,
         checklist: checklistFor(applicant),
     };
 }
@@ -80855,4 +80856,4 @@ init("fe-space-credit-ops");
 setFavicon();
 
 export { instrumentSetter as $, getTextContent as A, reducePrivacyLevel as B, CENSORED_STRING_MARK as C, getNodeSelfPrivacyLevel as D, ExperimentalFeature as E, PRIVACY_ATTR_NAME as F, hasChildNodes as G, isNodeShadowRoot as H, forEachChildNodes as I, timeStampNow as J, getScrollY as K, getScrollX as L, isElementNode as M, NodePrivacyLevel as N, getNodePrivacyLevel as O, PRIVACY_ATTR_VALUE_HIDDEN as P, getParentNode as Q, RumPerformanceEntryType as R, SESSION_TIME_OUT_DELAY as S, isNodeShadowHost as T, getViewportDimension as U, Observable$2 as V, throttle as W, addEventListeners as X, initViewportObservable as Y, noop$2 as Z, instrumentMethod as _, addTelemetryDebug as a, requestIdleCallback as a0, getMutationObserverConstructor as a1, monitor as a2, sendToExtension as a3, addRecord as a4, getSegmentsCount as a5, addSegment as a6, addWroteData as a7, isPageExitReason as a8, ONE_SECOND as a9, addTelemetryMetrics as aa, getEventBridge as ab, canUseEventBridge as ac, buildTags as b, createHttpRequest as c, currentDrift as d, createValueHistory as e, RumLongTaskEntryType as f, addDuration as g, addEventListener$1 as h, getGlobalObject as i, jsonStringify as j, display as k, clocksNow as l, mockable as m, clearTimeout$1 as n, objectEntries as o, elapsed as p, clocksOrigin as q, monitorError as r, setTimeout$1 as s, isExperimentalFeatureEnabled as t, shouldMaskNode as u, buildUrl$1 as v, shouldMaskAttribute as w, CENSORED_IMG_MARK as x, sanitizeIfLongDataUrl as y, isSafari as z };
-//# sourceMappingURL=index-ChjoQyHs.js.map
+//# sourceMappingURL=index-Cdtki-Pl.js.map
