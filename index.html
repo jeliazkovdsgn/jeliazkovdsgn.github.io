@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark" data-theme="dark">
   <head>
 <style>
 html[data-preview-locked] body > *:not(#preview-gate) { display: none !important; }
@@ -51,19 +51,28 @@ html[data-preview-locked] body > *:not(#preview-gate) { display: none !important
 <!-- /inline SystemJS -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          localStorage.setItem("huspy.theme", "dark");
+        } catch (e) {}
+        document.documentElement.classList.add("dark");
+        document.documentElement.setAttribute("data-theme", "dark");
+      })();
+    </script>
     <link
       rel="icon"
       href="https://fe-static.huspy.com/favicon/credit-ops-favicon-prod_v1.png"
       type="image/png"
     />
     <title>Credit Ops</title>
-    <script type="module" crossorigin src="/assets/index-D6OzJO0T.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CrT_0BeK.css">
+    <script type="module" crossorigin src="/assets/index-CmStUrn_.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CEcOLBw3.css">
   </head>
   <body>
     <div
       id="splash-screen"
-      class="bg-white fixed top-0 left-0 w-full h-full flex justify-center items-center flex-col"
+      class="bg-[#111] fixed top-0 left-0 w-full h-full flex justify-center items-center flex-col"
     >
       <img src="https://www.huspy.com/images/primary-logo.svg" alt="Huspy" />
 
@@ -72,7 +81,7 @@ html[data-preview-locked] body > *:not(#preview-gate) { display: none !important
 
     <div
       id="error-screen"
-      class="!hidden fixed top-0 left-0 w-full h-full flex justify-center items-center flex-col bg-white text-gray-700 p-8"
+      class="!hidden fixed top-0 left-0 w-full h-full flex justify-center items-center flex-col bg-[#111] text-gray-300 p-8"
     >
       <h1 class="text-xl font-semibold mb-4">Something went wrong</h1>
       <p class="text-gray-500">Please refresh the page to try again.</p>
